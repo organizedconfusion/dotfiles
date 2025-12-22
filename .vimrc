@@ -21,8 +21,6 @@ set lcs+=space:·            " show spaces as · when set list is on
 set cursorline              " highlight the line the cursor is on
 set visualbell              " visual bell indicator (screen flash)
 set showmatch               " show matching parentheses
-set colorcolumn=81          " show a vertical line at column 81
-highlight ColorColumn ctermbg=236
 
 " Text Formatting
 set autoindent              " auto-indent
