@@ -10,6 +10,9 @@ colorscheme retrobox        " set colorscheme
 
 " Vim UI
 set number                  " show line numbers
+set relativenumber	        " show relative line numbers
+autocmd InsertEnter * :set norelativenumber " Absolute line numbers in insert mode
+autocmd InsertLeave * :set relativenumber   " Relative otherwise
 set ruler                   " Always show info along bottom.
 set ignorecase              " Make searches case-insensitive.
 set incsearch               " But do highlight as you type your search.
