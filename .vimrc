@@ -21,6 +21,8 @@ set lcs+=space:·            " show spaces as · when set list is on
 set cursorline              " highlight the line the cursor is on
 set visualbell              " visual bell indicator (screen flash)
 set showmatch               " show matching parentheses
+set colorcolumn=81          " show a vertical line at column 81
+highlight ColorColumn ctermbg=236
 
 " Text Formatting
 set autoindent              " auto-indent
@@ -30,4 +32,3 @@ set shiftwidth=4            " indent/outdent by 4 columns
 set shiftround              " always indent/outdent to the nearest tabstop
 set expandtab               " use spaces instead of tabs
 set nowrap                  " don't wrap text
-set textwidth=80            " set a column width of 80 characters
