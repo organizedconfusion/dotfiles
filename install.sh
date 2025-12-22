@@ -1,17 +1,28 @@
 #!/usr/bin/env bash
+
+symlink_file() {
+    local SRC=$1
+    local DST=$2
+
+    if [ -e "$DST" ] && [ ! -L "$DST" ]; then
+        echo "$DST already exists and is not a symlink. Aborting."
+        exit 1
+    fi
+
+    ln -sf "$SRC" "$DST"
+
+    echo "Linked $SRC -> $DST"
+}
+
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-TARGET="$HOME/.vimrc"
-SOURCE="$SCRIPT_DIR/.vimrc"
+#### Vim
 
-if [ -e "$TARGET" ] && [ ! -L "$TARGET" ]; then
-    echo "~/.vimrc already exists and is not a symlink. Aborting."
-    exit 1
-fi
+symlink_file "$SCRIPT_DIR/.vimrc" "$HOME/.vimrc" 
 
-ln -sf "$SOURCE" "$TARGET"
+#### Git
 
-echo "Linked $SOURCE -> $TARGET"
-
+symlink_file "$SCRIPT_DIR/.gitconfig" "$HOME/.gitconfig" 
+symlink_file "$SCRIPT_DIR/.gitignore_global" "$HOME/.gitignore_global"

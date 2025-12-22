@@ -1,0 +1,11 @@
+[user]
+	name = organizedconfusion
+	email = github@underclocked.com
+[core]
+	autocrlf = input
+	editor = vim
+	excludesfile = ~/.gitignore_global
+[pull]
+	rebase = true
+[color]
+	ui = auto
