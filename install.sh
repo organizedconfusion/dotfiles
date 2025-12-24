@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 symlink_file() {
     local SRC=$1
     local DST=$2
@@ -14,11 +16,15 @@ symlink_file() {
     echo "Linked $SRC -> $DST"
 }
 
-set -euo pipefail
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 #### Vim
+
+echo Installing yegappan/lsp
+mkdir -p $HOME/.vim/pack/downloads/opt
+cd $HOME/.vim/pack/downloads/opt
+git clone https://github.com/yegappan/lsp
+vim -u NONE -c "helptags $HOME/.vim/pack/downloads/opt/lsp/doc" -c q
 
 symlink_file "$SCRIPT_DIR/.vimrc" "$HOME/.vimrc" 
 
