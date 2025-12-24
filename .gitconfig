@@ -9,3 +9,5 @@
 	rebase = true
 [color]
 	ui = auto
+[alias]
+    st = status
