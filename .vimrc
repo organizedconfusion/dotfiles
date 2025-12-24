@@ -54,11 +54,13 @@ nnoremap gd :LspGotoDefinition<CR>
 nnoremap gD :LspGotoDeclaration<CR>
 nnoremap gr :LspShowReferences<CR>
 nnoremap K  :LspHover<CR>
-nnoremap gl :LspDiag current<CR>
+nnoremap <leader>cd :LspDiag current<CR>
 nnoremap <leader>nd :LspDiag next \| LspDiag current<CR>
 nnoremap <leader>pd :LspDiag prev \| LspDiag current<CR>
 nnoremap <leader>sd :LspDiag show<CR>
 nnoremap <leader>cr :LspRename<CR>
+nnoremap <leader>ca :LspCodeAction<CR>
+vnoremap <leader>ca :LspCodeAction<CR>
 
 " LSP
 packadd lsp
