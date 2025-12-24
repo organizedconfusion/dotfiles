@@ -48,4 +48,37 @@ set linebreak               " don't break words when wrapping
 set nowrap                  " don't wrap text
 
 " Key Remapping
+let mapleader = " "
 inoremap jk <esc>
+nnoremap gd :LspGotoDefinition<CR>
+nnoremap gD :LspGotoDeclaration<CR>
+nnoremap gr :LspShowReferences<CR>
+nnoremap K  :LspHover<CR>
+nnoremap gl :LspDiag current<CR>
+nnoremap <leader>nd :LspDiag next \| LspDiag current<CR>
+nnoremap <leader>pd :LspDiag prev \| LspDiag current<CR>
+nnoremap <leader>sd :LspDiag show<CR>
+nnoremap <leader>cr :LspRename<CR>
+
+" LSP
+packadd lsp
+
+   call LspOptionsSet(#{
+        \ autoHighlightDiag: v:true,
+        \ popupBorder: v:true,
+        \ semanticHighlight: v:true,
+        \ autoHighlight: v:true
+        \ })
+
+    " Clangd language server
+    call LspAddServer([#{
+        \    name: 'clangd',
+        \    filetype: ['c', 'cpp'],
+        \    path: 'clangd',
+        \    args: [
+        \       '--background-index',
+        \       '--pretty',
+        \       '--header-insertion=iwyu',
+        \       '--clang-tidy'
+        \    ]
+        \ }])
