@@ -55,6 +55,7 @@ set showmatch               " show matching parentheses
 let &t_SI.="\e[5 q" "SI = INSERT mode
 let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 
+
 " Text Formatting
 set autoindent              " auto-indent
 set tabstop=4               " tab spacing
@@ -64,6 +65,7 @@ set shiftround              " always indent/outdent to the nearest tabstop
 set expandtab               " use spaces instead of tabs
 set linebreak               " don't break words when wrapping
 set nowrap                  " don't wrap text
+
 
 " Key Remapping
 let mapleader = " "
@@ -80,14 +82,14 @@ nnoremap <leader>cr :LspRename<CR>
 nnoremap <leader>ca :LspCodeAction<CR>
 vnoremap <leader>ca :LspCodeAction<CR>
 
+
 " LSP
 packadd lsp
 
    call LspOptionsSet(#{
         \ autoHighlightDiag: v:true,
         \ popupBorder: v:true,
-        \ semanticHighlight: v:true,
-        \ autoHighlight: v:true
+        \ semanticHighlight: v:true
         \ })
 
     " Clangd language server
@@ -102,3 +104,4 @@ packadd lsp
         \       '--clang-tidy'
         \    ]
         \ }])
+
