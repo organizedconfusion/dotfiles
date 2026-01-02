@@ -58,7 +58,7 @@ set showmatch               " show matching parentheses
 " Cursor settings:
 
 "  1 -> blinking block
-"  2 -> solid block 
+"  2 -> solid block
 "  3 -> blinking underscore
 "  4 -> solid underscore
 "  5 -> blinking vertical bar
