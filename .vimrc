@@ -84,6 +84,7 @@ set nowrap                  " don't wrap text
 " Key Remapping
 let mapleader = " "
 inoremap jk <esc>
+vnoremap jk <esc>
 nnoremap gd :LspGotoDefinition<CR>
 nnoremap gD :LspGotoDeclaration<CR>
 nnoremap gr :LspShowReferences<CR>
@@ -96,10 +97,14 @@ nnoremap <leader>cr :LspRename<CR>
 nnoremap <leader>ca :LspCodeAction<CR>
 vnoremap <leader>ca :LspCodeAction<CR>
 nnoremap <leader>cf :LspFormat<CR>
+vnoremap <leader>cf :LspFormat<CR>
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
 
 
 " LSP
-
 let lspOpts = #{
             \ autoHighlightDiag: v:true,
             \ popupBorder: v:true,
