@@ -131,7 +131,14 @@ let lspServers =  [#{
             \       '--pretty',
             \       '--header-insertion=iwyu',
             \       '--clang-tidy'
-            \    ]
+            \   ]
+            \ },
+            \ #{
+            \   name: 'rustlang',
+            \   filetype: ['rust'],
+            \   path: 'rust-analyzer',
+            \   args: [],
+            \   syncInit: v:true
             \ }]
 
 autocmd User LspSetup call LspAddServer(lspServers)
