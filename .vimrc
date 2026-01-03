@@ -110,7 +110,7 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
-
+nnoremap <C-p> :Files<CR>
 
 " LSP
 let lspOpts = #{
