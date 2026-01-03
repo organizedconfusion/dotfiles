@@ -19,6 +19,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yegappan/lsp'
 Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
 
 call plug#end()
 
