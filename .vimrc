@@ -41,6 +41,7 @@ syntax enable               " enable syntax highlighting (previously syntax on).
 set background=dark         " dark mode for colorscheme
 let g:gruvbox_italic=1
 autocmd vimenter * ++nested colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
 let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
 let g:highlightedyank_highlight_duration = 200
