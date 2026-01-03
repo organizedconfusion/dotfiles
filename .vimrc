@@ -55,6 +55,7 @@ set lcs+=space:·            " show spaces as · when set list is on
 set cursorline              " highlight the line the cursor is on
 set visualbell              " visual bell indicator (screen flash)
 set showmatch               " show matching parentheses
+set scrolloff=5             " always show 5 lines of context around selected line
 
 " Cursor settings:
 
