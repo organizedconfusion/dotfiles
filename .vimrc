@@ -124,7 +124,7 @@ let lspOpts = #{
 
 autocmd User LspSetup call LspOptionsSet(lspOpts)
 
-" Clangd language server
+" language servers
 let lspServers =  [#{
             \    name: 'clangd',
             \    filetype: ['c', 'cpp'],
@@ -141,7 +141,12 @@ let lspServers =  [#{
             \   filetype: ['rust'],
             \   path: 'rust-analyzer',
             \   args: [],
-            \   syncInit: v:true
+            \   syncInit: v:true,
+            \   initializationOptions: {
+            \       'completion': {
+            \           'autoimport': { 'enable': v:true }
+            \       }
+            \   }
             \ }]
 
 autocmd User LspSetup call LspAddServer(lspServers)
