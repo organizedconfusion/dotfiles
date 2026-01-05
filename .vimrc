@@ -111,6 +111,9 @@ nnoremap N Nzz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
 nnoremap <C-p> :Files<CR>
+" replace the :W shortcut for :Windows command from fzf with :w
+cnoreabbrev <expr> W (getcmdtype() == ':' && getcmdline() =~ '^W$')? 'w' : 'W'
+
 
 " LSP
 let lspOpts = #{
