@@ -32,3 +32,6 @@ symlink_file "$SCRIPT_DIR/.gitignore_global" "$HOME/.gitignore_global"
 symlink_file "$SCRIPT_DIR/.inputrc" "$HOME/.inputrc"
 symlink_file "$SCRIPT_DIR/.bashrc" "$HOME/.bashrc"
 symlink_file "$SCRIPT_DIR/.bashrc.d" "$HOME/.bashrc.d"
+
+#### Tmux
+symlink_file "$SCRIPT_DIR/.tmux.conf" "$HOME/.tmux.conf"
