@@ -98,8 +98,8 @@ nnoremap gD :LspGotoDeclaration<CR>
 nnoremap gr :LspShowReferences<CR>
 nnoremap K  :LspHover<CR>
 nnoremap <leader>cd :LspDiag current<CR>
-nnoremap <leader>nd :LspDiag next \| LspDiag current<CR>
-nnoremap <leader>pd :LspDiag prev \| LspDiag current<CR>
+nnoremap <leader>nd :LspDiagNextWrap<CR>
+nnoremap <leader>pd :LspDiagPrevWrap<CR>
 nnoremap <leader>sd :LspDiag show<CR>
 nnoremap <leader>cr :LspRename<CR>
 nnoremap <leader>ca :LspCodeAction<CR>
