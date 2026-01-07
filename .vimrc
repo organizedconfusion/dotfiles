@@ -42,6 +42,7 @@ set background=dark         " dark mode for colorscheme
 let g:gruvbox_italic=1
 autocmd vimenter * ++nested colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection = 0
 let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
 let g:highlightedyank_highlight_duration = 200
@@ -64,6 +65,7 @@ set cursorline              " highlight the line the cursor is on
 set visualbell              " visual bell indicator (screen flash)
 set showmatch               " show matching parentheses
 set scrolloff=5             " always show 5 lines of context around selected line
+set timeout timeoutlen=250  " wait 250ms between key combos
 
 " Cursor settings:
 
@@ -106,13 +108,22 @@ nnoremap <leader>ca :LspCodeAction<CR>
 vnoremap <leader>ca :LspCodeAction<CR>
 nnoremap <leader>cf :LspFormat<CR>
 vnoremap <leader>cf :LspFormat<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>fh :History<CR>
+nnoremap <leader>fg :Rg<Space>
+noremap <leader><leader> :noh<CR>:call clearmatches()<CR>
 nnoremap n nzz
 nnoremap N Nzz
+nnoremap * Nzz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
-nnoremap <C-p> :Files<CR>
 " replace the :W shortcut for :Windows command from fzf with :w
 cnoreabbrev <expr> W (getcmdtype() == ':' && getcmdline() =~ '^W$')? 'w' : 'W'
+cnoreabbrev <expr> Q (getcmdtype() == ':' && getcmdline() =~ '^Q$')? 'q' : 'Q'
 
 
 " LSP
