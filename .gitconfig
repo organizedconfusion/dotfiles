@@ -3,7 +3,7 @@
 	email = github@underclocked.com
 [core]
 	autocrlf = input
-	editor = vim
+	editor = nvim
 	excludesfile = ~/.gitignore_global
 [pull]
 	rebase = true
