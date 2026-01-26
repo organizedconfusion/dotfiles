@@ -26,7 +26,11 @@ require("gruvbox").setup({
     contrast = "hard"
 })
 vim.cmd([[colorscheme gruvbox]])
-
+vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+vim.api.nvim_set_hl(0, "DiagnosticSignError", { link = "DiagnosticError" })
+vim.api.nvim_set_hl(0, "DiagnosticSignWarn",  { link = "DiagnosticWarn" })
+vim.api.nvim_set_hl(0, "DiagnosticSignInfo",  { link = "DiagnosticInfo" })
+vim.api.nvim_set_hl(0, "DiagnosticSignHint",  { link = "DiagnosticHint" })
 
 -- [[ VIM UI ]]
 vim.opt.number = true
@@ -109,9 +113,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 vim.api.nvim_create_autocmd("InsertEnter", { command = [[set norelativenumber]] })
 vim.api.nvim_create_autocmd("InsertLeave", { command = [[set relativenumber]] })
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function()
-    vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
-  end,
-})
 
