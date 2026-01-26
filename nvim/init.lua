@@ -4,22 +4,45 @@
 -- NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 
-require("config.lazy")
+-- [[ PLUGINS ]]
+vim.pack.add {
+    {src = "https://github.com/machakann/vim-sandwich"},
+    {src = "https://github.com/nvim-lualine/lualine.nvim"},
+    {src = "https://github.com/ellisonleao/gruvbox.nvim"},
+    {src = "https://github.com/echasnovski/mini.pick"},
+    {src = "https://github.com/mason-org/mason.nvim"},
+    {src = "https://github.com/neovim/nvim-lspconfig"},
+}
+require('lualine').setup({
+    theme = 'auto'
+})
+require("mason").setup()
+require("mini.pick").setup()
+
+-- [[ COLORSCHEME ]]
+vim.opt.termguicolors = true
+vim.opt.background = "dark"
+require("gruvbox").setup({
+    contrast = "hard"
+})
+vim.cmd([[colorscheme gruvbox]])
+
 
 -- [[ VIM UI ]]
-vim.opt.number = true -- Print the line number in front of each line
-vim.opt.relativenumber = true --Print relative line numbers
-vim.opt.ignorecase = true -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.cursorline = true -- Highlight the line where the cursor is on
-vim.opt.scrolloff = 5 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.list = true -- Show <tab> and trailing spaces
-vim.opt.confirm = true -- confirm before performing actions with unsaved changes
-vim.opt.ruler = true -- Always show info along the bottom
-vim.opt.list = false -- do not show whitespace characters by default
-vim.opt.listchars:append('space:·') -- show spaces as · when list is on
-vim.opt.visualbell = true -- screen flash for bell indicator
-vim.opt.showmatch = true -- show matching parentheses
+vim.opt.cursorline = true
+vim.opt.scrolloff = 5
+vim.opt.confirm = true
+vim.opt.ruler = true
+vim.opt.list = false
+vim.opt.listchars:append('space:·')
+vim.opt.visualbell = true
+vim.opt.showmatch = true
+vim.opt.signcolumn = "yes"
+vim.opt.winborder = "rounded"
 
 -- Sync clipboard between OS and Neovim. Schedule the setting after `UiEnter` because it can
 -- increase startup-time. Remove this option if you want your OS clipboard to remain independent.
@@ -32,23 +55,24 @@ vim.api.nvim_create_autocmd('UIEnter', {
 
 
 -- [[ TEXT FORMATTING ]]
-vim.opt.autoindent = true -- auto-indent
-vim.opt.tabstop = 4 -- tab spacing
-vim.opt.softtabstop = 4 -- unify tab behavior
-vim.opt.shiftwidth = 4 -- indent/outdent by 4 columns
-vim.opt.shiftround = true -- always indent/outdent to nearest tabstop
-vim.opt.expandtab = true -- use spaces instead of tabs
-vim.opt.linebreak = true -- don't break words when wrapping
-vim.opt.wrap = false -- don't wrap text
+vim.opt.autoindent = true
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.shiftround = true
+vim.opt.expandtab = true
+vim.opt.linebreak = true
+vim.opt.wrap = false
+
+
+-- [[ LSP ]]
+vim.lsp.enable('lua_ls')
 
 
 -- [[ KEYMAPPINGS ]]
 -- See `:h vim.keymap.set()`, `:h mapping`, `:h keycodes`
 
--- Use <Esc> to exit terminal mode
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-
--- Map <A-j>, <A-k>, <A-h>, <A-l> to navigate between windows in any modes
 vim.keymap.set({ 't', 'i' }, '<A-h>', '<C-\\><C-n><C-w>h')
 vim.keymap.set({ 't', 'i' }, '<A-j>', '<C-\\><C-n><C-w>j')
 vim.keymap.set({ 't', 'i' }, '<A-k>', '<C-\\><C-n><C-w>k')
@@ -57,7 +81,6 @@ vim.keymap.set({ 'n' }, '<A-h>', '<C-w>h')
 vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
 vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
 vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
--- Center search results when navigating
 vim.keymap.set('n', 'n', 'nzz')
 vim.keymap.set('n', 'N', 'Nzz')
 vim.keymap.set('n', '*', '*zz')
@@ -66,11 +89,10 @@ vim.keymap.set('n', 'g*', 'g*zz')
 vim.keymap.set('n', 'g#', 'g#zz')
 vim.keymap.set('n', '<C-o>', '<C-o>zz')
 vim.keymap.set('n', '<C-i>', '<C-i>zz')
-vim.keymap.set("n", "<leader><leader>", "<cmd>noh<CR>", {
-  desc = "Clear search highlight",
-})
--- jk as escape in insert and visual mode
+vim.keymap.set('n', '<leader><leader>', '<cmd>noh<CR>')
 vim.keymap.set({'i', 'v'}, 'jk', '<esc>')
+vim.keymap.set('n','<leader>cf', vim.lsp.buf.format)
+vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
 
 
 -- [[ AUTOCOMMANDS ]].
@@ -85,7 +107,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- autocmd for insert mode relative/absolute line numbers
 vim.api.nvim_create_autocmd("InsertEnter", { command = [[set norelativenumber]] })
 vim.api.nvim_create_autocmd("InsertLeave", { command = [[set relativenumber]] })
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+  end,
+})
 
