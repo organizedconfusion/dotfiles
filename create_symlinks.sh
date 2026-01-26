@@ -18,9 +18,9 @@ symlink_file() {
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-#### Vim
+#### Nvim
 
-symlink_file "$SCRIPT_DIR/.vimrc" "$HOME/.vimrc" 
+symlink_file "$SCRIPT_DIR/nvim" "$HOME/.config/nvim" 
 
 #### Git
 
