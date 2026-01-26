@@ -70,7 +70,16 @@ vim.opt.wrap = false
 
 
 -- [[ LSP ]]
-vim.lsp.enable('lua_ls')
+vim.lsp.enable({'clangd', 'lua_ls'})
+vim.lsp.config("clangd", {
+    cmd = {
+        "clangd",
+        "--background-index",
+        "--clang-tidy",
+        "--header-insertion=iwyu",
+        "--completion-style=detailed"
+    },
+})
 
 
 -- [[ KEYMAPPINGS ]]
