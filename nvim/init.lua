@@ -14,6 +14,7 @@ vim.pack.add {
     {src = "https://github.com/neovim/nvim-lspconfig"},
     {src = "https://github.com/nvim-mini/mini.files"},
     {src = "https://github.com/nvim-treesitter/nvim-treesitter"},
+    {src = "https://github.com/lewis6991/gitsigns.nvim"},
 }
 require('lualine').setup({
     theme = 'auto'
@@ -60,6 +61,24 @@ vim.api.nvim_create_autocmd('FileType', {
     end,
 })
 
+require("gitsigns").setup({
+    signs = {
+        add          = { text = '+' },
+        change       = { text = '┃' },
+        delete       = { text = '-' },
+        topdelete    = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked    = { text = '┆' },
+    },
+    signs_staged = {
+        add          = { text = '+' },
+        change       = { text = '┃' },
+        delete       = { text = '-' },
+        topdelete    = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked    = { text = '┆' },
+    },
+})
 
 -- [[ COLORSCHEME ]]
 vim.opt.termguicolors = true
