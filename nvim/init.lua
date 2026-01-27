@@ -21,7 +21,6 @@ require('lualine').setup({
 require("mason").setup()
 require("mini.pick").setup()
 require("mini.files").setup()
-require("nvim-treesitter").setup()
 local langs = {
     'bash',
     'c',
@@ -50,14 +49,14 @@ for _, lang in ipairs(langs) do
     require("nvim-treesitter").install(lang)
 end
 
-vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.wo[0][0].foldmethod = 'expr'
-vim.api.nvim_command("set nofoldenable")
-
 vim.api.nvim_create_autocmd('FileType', {
     pattern = langs,
-    callback = function()
-        vim.treesitter.start()
+    callback = function(args)
+        vim.treesitter.start(args.buf)
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        vim.wo[0][0].foldmethod = 'expr'
+        vim.wo.foldlevel = 99
     end,
 })
 
