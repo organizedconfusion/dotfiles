@@ -13,6 +13,7 @@ vim.pack.add {
     {src = "https://github.com/mason-org/mason.nvim"},
     {src = "https://github.com/neovim/nvim-lspconfig"},
     {src = "https://github.com/nvim-mini/mini.files"},
+    {src = "https://github.com/nvim-treesitter/nvim-treesitter"},
 }
 require('lualine').setup({
     theme = 'auto'
@@ -20,6 +21,46 @@ require('lualine').setup({
 require("mason").setup()
 require("mini.pick").setup()
 require("mini.files").setup()
+require("nvim-treesitter").setup()
+local langs = {
+    'bash',
+    'c',
+    'cmake',
+    'comment',
+    'cpp',
+    'csv',
+    'diff',
+    'git_config',
+    'git_rebase',
+    'gitattributes',
+    'gitcommit',
+    'gitignore',
+    'json',
+    'linkerscript',
+    'lua',
+    'markdown',
+    'markdown_inline',
+    'python',
+    'vim',
+    'vimdoc',
+    'yaml',
+}
+
+for _, lang in ipairs(langs) do
+    require("nvim-treesitter").install(lang)
+end
+
+vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.wo[0][0].foldmethod = 'expr'
+vim.api.nvim_command("set nofoldenable")
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = langs,
+    callback = function()
+        vim.treesitter.start()
+    end,
+})
+
 
 -- [[ COLORSCHEME ]]
 vim.opt.termguicolors = true
