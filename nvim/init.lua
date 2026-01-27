@@ -12,12 +12,14 @@ vim.pack.add {
     {src = "https://github.com/echasnovski/mini.pick"},
     {src = "https://github.com/mason-org/mason.nvim"},
     {src = "https://github.com/neovim/nvim-lspconfig"},
+    {src = "https://github.com/nvim-mini/mini.files"},
 }
 require('lualine').setup({
     theme = 'auto'
 })
 require("mason").setup()
 require("mini.pick").setup()
+require("mini.files").setup()
 
 -- [[ COLORSCHEME ]]
 vim.opt.termguicolors = true
@@ -31,6 +33,13 @@ vim.api.nvim_set_hl(0, "DiagnosticSignError", { link = "DiagnosticError" })
 vim.api.nvim_set_hl(0, "DiagnosticSignWarn",  { link = "DiagnosticWarn" })
 vim.api.nvim_set_hl(0, "DiagnosticSignInfo",  { link = "DiagnosticInfo" })
 vim.api.nvim_set_hl(0, "DiagnosticSignHint",  { link = "DiagnosticHint" })
+vim.api.nvim_set_hl(0, "MiniPickNormal", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "MiniPickBorder", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "MiniFilesBorder", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "MiniFilesNormal", { bg = "NONE" })
+vim.opt.winblend = 12
+vim.opt.pumblend = 12
+
 
 -- [[ VIM UI ]]
 vim.opt.number = true
@@ -39,7 +48,6 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.cursorline = true
 vim.opt.scrolloff = 5
-vim.opt.confirm = true
 vim.opt.ruler = true
 vim.opt.list = false
 vim.opt.listchars:append('space:·')
@@ -47,6 +55,8 @@ vim.opt.visualbell = true
 vim.opt.showmatch = true
 vim.opt.signcolumn = "yes"
 vim.opt.winborder = "rounded"
+vim.opt.timeout = true
+vim.opt.timeoutlen = 300
 
 -- Sync clipboard between OS and Neovim. Schedule the setting after `UiEnter` because it can
 -- increase startup-time. Remove this option if you want your OS clipboard to remain independent.
@@ -104,8 +114,30 @@ vim.keymap.set('n', '<C-o>', '<C-o>zz')
 vim.keymap.set('n', '<C-i>', '<C-i>zz')
 vim.keymap.set('n', '<leader><leader>', '<cmd>noh<CR>')
 vim.keymap.set({'i', 'v'}, 'jk', '<esc>')
-vim.keymap.set('n','<leader>cf', vim.lsp.buf.format)
-vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
+vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
+vim.keymap.set('n', '<leader>b', ':Pick buffers<CR>')
+vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open()<CR>')
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+        local bufnr = args.buf
+        local opts = { buffer = bufnr, noremap = true, silent = true }
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, opts)
+        vim.keymap.set('n', '[d', function()
+            vim.diagnostic.goto_prev()
+            vim.diagnostic.open_float()
+        end, opts)
+        vim.keymap.set('n', ']d', function()
+            vim.diagnostic.goto_next()
+            vim.diagnostic.open_float()
+        end, opts)
+    end,
+})
 
 
 -- [[ AUTOCOMMANDS ]].
