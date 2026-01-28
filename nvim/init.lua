@@ -186,6 +186,14 @@ vim.keymap.set({'i', 'v'}, 'jk', '<esc>')
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>b', ':Pick buffers<CR>')
 vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open()<CR>')
+vim.keymap.set(
+    'n',
+    '<leader><leader>d',
+    function()
+        local today = vim.fn.strftime("# %Y-%m-%d")
+        vim.api.nvim_put({ today }, "c", true, true)
+    end
+)
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local bufnr = args.buf
