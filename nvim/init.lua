@@ -38,6 +38,7 @@ local langs = {
     'json',
     'linkerscript',
     'lua',
+    'make',
     'markdown',
     'markdown_inline',
     'python',

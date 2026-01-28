@@ -1,0 +1,40 @@
+{
+  "plugins": {
+    "gitsigns.nvim": {
+      "rev": "abf82a65f185bd54adc0679f74b7d6e1ada690c9",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "gruvbox.nvim": {
+      "rev": "a472496e1a4465a2dd574389dcf6cdb29af9bf1b",
+      "src": "https://github.com/ellisonleao/gruvbox.nvim"
+    },
+    "lualine.nvim": {
+      "rev": "47f91c416daef12db467145e16bed5bbfe00add8",
+      "src": "https://github.com/nvim-lualine/lualine.nvim"
+    },
+    "mason.nvim": {
+      "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "mini.files": {
+      "rev": "fafacfecdd6c5a66bb10d173a749f3c098e84498",
+      "src": "https://github.com/nvim-mini/mini.files"
+    },
+    "mini.pick": {
+      "rev": "7c0a674f620ddc701903b887b2dade836b23ea79",
+      "src": "https://github.com/echasnovski/mini.pick"
+    },
+    "nvim-lspconfig": {
+      "rev": "4044b8544a6cea57179d5a29c203b6b65d2b6ac4",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-treesitter": {
+      "rev": "f8bbc3177d929dc86e272c41cc15219f0a7aa1ac",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "vim-sandwich": {
+      "rev": "74cf93d58ccc567d8e2310a69860f1b93af19403",
+      "src": "https://github.com/machakann/vim-sandwich"
+    }
+  }
+}
