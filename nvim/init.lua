@@ -5,23 +5,32 @@
 vim.g.mapleader = ' '
 
 -- [[ PLUGINS ]]
+vim.g.vimwiki_list = {
+    {
+        path = "~/vimwiki/",
+        syntax = "markdown",
+        ext = ".md",
+    },
+}
 vim.pack.add {
-    {src = "https://github.com/machakann/vim-sandwich"},
-    {src = "https://github.com/nvim-lualine/lualine.nvim"},
     {src = "https://github.com/ellisonleao/gruvbox.nvim"},
-    {src = "https://github.com/echasnovski/mini.pick"},
+    {src = "https://github.com/lewis6991/gitsigns.nvim"},
     {src = "https://github.com/mason-org/mason.nvim"},
     {src = "https://github.com/neovim/nvim-lspconfig"},
+    {src = "https://github.com/nvim-lualine/lualine.nvim"},
     {src = "https://github.com/nvim-mini/mini.files"},
+    {src = "https://github.com/nvim-mini/mini.pick"},
+    {src = "https://github.com/nvim-mini/mini.surround"},
     {src = "https://github.com/nvim-treesitter/nvim-treesitter"},
-    {src = "https://github.com/lewis6991/gitsigns.nvim"},
+    {src = "https://github.com/vimwiki/vimwiki"},
 }
 require('lualine').setup({
     theme = 'auto'
 })
 require("mason").setup()
-require("mini.pick").setup()
 require("mini.files").setup()
+require("mini.pick").setup()
+require("mini.surround").setup()
 local langs = {
     'bash',
     'c',

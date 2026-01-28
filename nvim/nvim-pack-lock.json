@@ -24,6 +24,10 @@
       "rev": "7c0a674f620ddc701903b887b2dade836b23ea79",
       "src": "https://github.com/echasnovski/mini.pick"
     },
+    "mini.surround": {
+      "rev": "f9358544ed06bc10197e698b7fc8dc5963be3f4b",
+      "src": "https://github.com/nvim-mini/mini.surround"
+    },
     "nvim-lspconfig": {
       "rev": "4044b8544a6cea57179d5a29c203b6b65d2b6ac4",
       "src": "https://github.com/neovim/nvim-lspconfig"
@@ -32,9 +36,9 @@
       "rev": "f8bbc3177d929dc86e272c41cc15219f0a7aa1ac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
-    "vim-sandwich": {
-      "rev": "74cf93d58ccc567d8e2310a69860f1b93af19403",
-      "src": "https://github.com/machakann/vim-sandwich"
+    "vimwiki": {
+      "rev": "72792615e739d0eb54a9c8f7e0a46a6e2407c9e8",
+      "src": "https://github.com/vimwiki/vimwiki"
     }
   }
 }
