@@ -19,9 +19,12 @@ vim.pack.add {
     {src = "https://github.com/neovim/nvim-lspconfig"},
     {src = "https://github.com/nvim-lualine/lualine.nvim"},
     {src = "https://github.com/nvim-mini/mini.files"},
+    {src = "https://github.com/nvim-mini/mini.icons"},
+    {src = "https://github.com/nvim-mini/mini.pairs"},
     {src = "https://github.com/nvim-mini/mini.pick"},
     {src = "https://github.com/nvim-mini/mini.surround"},
     {src = "https://github.com/nvim-treesitter/nvim-treesitter"},
+    {src = "https://github.com/nvim-treesitter/nvim-treesitter-context"},
     {src = "https://github.com/vimwiki/vimwiki"},
 }
 require('lualine').setup({
@@ -29,6 +32,8 @@ require('lualine').setup({
 })
 require("mason").setup()
 require("mini.files").setup()
+require("mini.icons").setup()
+require("mini.pairs").setup()
 require("mini.pick").setup()
 require("mini.surround").setup()
 local langs = {
@@ -71,6 +76,10 @@ vim.api.nvim_create_autocmd('FileType', {
     end,
 })
 
+require("treesitter-context").setup({
+    max_lines = 1
+})
+
 require("gitsigns").setup({
     signs = {
         add          = { text = '+' },
@@ -106,6 +115,8 @@ vim.api.nvim_set_hl(0, "MiniPickNormal", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "MiniPickBorder", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "MiniFilesBorder", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "MiniFilesNormal", { bg = "NONE" })
+-- Manually put in gruvbox NormalFloat bg color here with no blend
+vim.api.nvim_set_hl(0, "TreesitterContext", { bg = '#3c3836', blend = 0 })
 vim.opt.winblend = 12
 vim.opt.pumblend = 12
 
@@ -146,6 +157,7 @@ vim.opt.shiftround = true
 vim.opt.expandtab = true
 vim.opt.linebreak = true
 vim.opt.wrap = false
+vim.opt.breakindent = true
 
 
 -- [[ LSP ]]
@@ -164,6 +176,10 @@ vim.lsp.config("clangd", {
 -- [[ KEYMAPPINGS ]]
 -- See `:h vim.keymap.set()`, `:h mapping`, `:h keycodes`
 
+vim.keymap.set('n', '<leader>wo', function()
+    vim.cmd("write")
+    vim.cmd("source")
+end, opts)
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 vim.keymap.set({ 't', 'i' }, '<A-h>', '<C-\\><C-n><C-w>h')
 vim.keymap.set({ 't', 'i' }, '<A-j>', '<C-\\><C-n><C-w>j')
@@ -186,9 +202,20 @@ vim.keymap.set({'i', 'v'}, 'jk', '<esc>')
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>b', ':Pick buffers<CR>')
 vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open()<CR>')
+vim.keymap.set('n', '<leader>d', function()
+    vim.diagnostic.open_float()
+end, opts)
+vim.keymap.set('n', '[d', function()
+    vim.diagnostic.jump({count = 1, wrap = true})
+    vim.diagnostic.open_float()
+end, opts)
+vim.keymap.set('n', ']d', function()
+    vim.diagnostic.jump({count = -1, wrap = true})
+    vim.diagnostic.open_float()
+end, opts)
 vim.keymap.set(
     'n',
-    '<leader><leader>d',
+    '<leader>dt',
     function()
         local today = vim.fn.strftime("# %Y-%m-%d")
         vim.api.nvim_put({ today }, "c", true, true)
@@ -205,14 +232,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
         vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, opts)
-        vim.keymap.set('n', '[d', function()
-            vim.diagnostic.goto_prev()
-            vim.diagnostic.open_float()
-        end, opts)
-        vim.keymap.set('n', ']d', function()
-            vim.diagnostic.goto_next()
-            vim.diagnostic.open_float()
-        end, opts)
     end,
 })
 
