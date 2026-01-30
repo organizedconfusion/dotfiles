@@ -20,6 +20,14 @@
       "rev": "fafacfecdd6c5a66bb10d173a749f3c098e84498",
       "src": "https://github.com/nvim-mini/mini.files"
     },
+    "mini.icons": {
+      "rev": "efc85e42262cd0c9e1fdbf806c25cb0be6de115c",
+      "src": "https://github.com/nvim-mini/mini.icons"
+    },
+    "mini.pairs": {
+      "rev": "4089aa6ea6423e02e1a8326a7a7a00159f6f5e04",
+      "src": "https://github.com/nvim-mini/mini.pairs"
+    },
     "mini.pick": {
       "rev": "7c0a674f620ddc701903b887b2dade836b23ea79",
       "src": "https://github.com/echasnovski/mini.pick"
@@ -35,6 +43,15 @@
     "nvim-treesitter": {
       "rev": "f8bbc3177d929dc86e272c41cc15219f0a7aa1ac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "nvim-treesitter-context": {
+      "rev": "64dd4cf3f6fd0ab17622c5ce15c91fc539c3f24a",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
+    },
+    "nvim-treesitter-textobjects": {
+      "rev": "a0e182ae21fda68c59d1f36c9ed45600aef50311",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+      "version": "'main'"
     },
     "vimwiki": {
       "rev": "72792615e739d0eb54a9c8f7e0a46a6e2407c9e8",
