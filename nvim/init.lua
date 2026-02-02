@@ -122,13 +122,10 @@ vim.api.nvim_set_hl(0, "DiagnosticSignError", { link = "DiagnosticError" })
 vim.api.nvim_set_hl(0, "DiagnosticSignWarn",  { link = "DiagnosticWarn" })
 vim.api.nvim_set_hl(0, "DiagnosticSignInfo",  { link = "DiagnosticInfo" })
 vim.api.nvim_set_hl(0, "DiagnosticSignHint",  { link = "DiagnosticHint" })
-vim.api.nvim_set_hl(0, "MiniPickNormal", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "MiniPickBorder", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "MiniFilesBorder", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "MiniFilesNormal", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "FloatTitle", { link = "NormalFloat" })
 -- Manually put in gruvbox NormalFloat bg color here with no blend
 vim.api.nvim_set_hl(0, "TreesitterContext", { bg = '#3c3836', blend = 0 })
-vim.opt.winblend = 12
 vim.opt.pumblend = 12
 
 
@@ -182,11 +179,17 @@ vim.lsp.config("clangd", {
         "--completion-style=detailed"
     },
 })
+vim.diagnostic.config({
+    jump = { float = true }
+})
 
 
 -- [[ KEYMAPPINGS ]]
 -- See `:h vim.keymap.set()`, `:h mapping`, `:h keycodes`
 
+vim.keymap.set('n', '<leader>wf', function()
+    vim.cmd("write")
+end, opts)
 vim.keymap.set('n', '<leader>wo', function()
     vim.cmd("write")
     vim.cmd("source")
@@ -216,20 +219,21 @@ vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
 vim.keymap.set('n', '<leader>g', ':Pick grep_live<CR>')
 vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>')
 vim.keymap.set('n', '<leader>E', ':lua MiniFiles.open()<CR>')
+vim.keymap.set('n', '<leader>ad', function()
+    vim.diagnostic.setloclist({open = true})
+end, opts)
 vim.keymap.set('n', '<leader>d', function()
     vim.diagnostic.open_float()
 end, opts)
-vim.keymap.set('n', '[d', function()
-    vim.diagnostic.jump({count = 1, wrap = true})
-    vim.diagnostic.open_float()
-end, opts)
 vim.keymap.set('n', ']d', function()
+    vim.diagnostic.jump({count = 1, wrap = true})
+end, opts)
+vim.keymap.set('n', '[d', function()
     vim.diagnostic.jump({count = -1, wrap = true})
-    vim.diagnostic.open_float()
 end, opts)
 vim.keymap.set(
     'n',
-    '<leader>dt',
+    '<leader>t',
     function()
         local today = vim.fn.strftime("# %Y-%m-%d")
         vim.api.nvim_put({ today }, "c", true, true)
