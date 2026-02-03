@@ -108,6 +108,38 @@ require("gitsigns").setup({
         changedelete = { text = '~' },
         untracked    = { text = '┆' },
     },
+    on_attach = function(bufnr)
+        local gitsigns = require('gitsigns')
+
+        local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Navigation
+        map('n', ']c', function()
+            if vim.wo.diff then
+                vim.cmd.normal({']c', bang = true})
+            else
+                gitsigns.nav_hunk('next')
+            end
+        end)
+
+        map('n', '[c', function()
+            if vim.wo.diff then
+                vim.cmd.normal({']c', bang = true})
+            else
+                gitsigns.nav_hunk('prev')
+            end
+        end)
+
+        -- Actions
+        map('n', '<leader>hs', gitsigns.stage_hunk)
+        map('n', '<leader>hr', gitsigns.reset_hunk)
+        map('n', '<leader>hp', gitsigns.preview_hunk)
+        map('n', '<leader>hd', gitsigns.diffthis)
+    end
 })
 
 -- [[ COLORSCHEME ]]
@@ -215,7 +247,7 @@ vim.keymap.set('n', '<leader><leader>', '<cmd>noh<CR>')
 vim.keymap.set({'i', 'v'}, 'jk', '<esc>')
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>b', ':Pick buffers<CR>')
-vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
+vim.keymap.set('n', '<leader>hh', ':Pick help<CR>')
 vim.keymap.set('n', '<leader>g', ':Pick grep_live<CR>')
 vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>')
 vim.keymap.set('n', '<leader>E', ':lua MiniFiles.open()<CR>')
