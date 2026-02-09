@@ -3,3 +3,5 @@
 *.swn
 *~
 *.bak
+*.cache
+compile_commands.json

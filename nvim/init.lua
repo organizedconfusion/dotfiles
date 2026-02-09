@@ -39,7 +39,13 @@ require("mason").setup()
 require("mini.files").setup()
 require("mini.icons").setup()
 require("mini.pairs").setup()
-require("mini.pick").setup()
+require("mini.pick").setup({
+    window = {
+        config = {
+            width = 80,
+        }
+    }
+})
 require("mini.surround").setup()
 local langs = {
     'bash',
@@ -139,6 +145,7 @@ require("gitsigns").setup({
         map('n', '<leader>hr', gitsigns.reset_hunk)
         map('n', '<leader>hp', gitsigns.preview_hunk)
         map('n', '<leader>hd', gitsigns.diffthis)
+        map('n', '<leader>hb', gitsigns.blame)
     end
 })
 
@@ -146,7 +153,7 @@ require("gitsigns").setup({
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 require("gruvbox").setup({
-    contrast = "hard"
+    -- contrast = "hard"
 })
 vim.cmd([[colorscheme gruvbox]])
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
@@ -158,7 +165,10 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "FloatTitle", { link = "NormalFloat" })
 -- Manually put in gruvbox NormalFloat bg color here with no blend
 vim.api.nvim_set_hl(0, "TreesitterContext", { bg = '#3c3836', blend = 0 })
+vim.opt.winblend = 12
 vim.opt.pumblend = 12
+vim.opt.colorcolumn = "81"
+vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#5d302b"})
 
 
 -- [[ VIM UI ]]
@@ -201,14 +211,15 @@ vim.opt.breakindent = true
 
 
 -- [[ LSP ]]
-vim.lsp.enable({'clangd', 'lua_ls'})
+vim.lsp.enable({'clangd', 'lua_ls', 'pyright'})
 vim.lsp.config("clangd", {
     cmd = {
         "clangd",
         "--background-index",
         "--clang-tidy",
         "--header-insertion=iwyu",
-        "--completion-style=detailed"
+        "--completion-style=detailed",
+        "--fallback-style=none"
     },
 })
 vim.diagnostic.config({
@@ -235,16 +246,17 @@ vim.keymap.set({ 'n' }, '<A-h>', '<C-w>h')
 vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
 vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
 vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
-vim.keymap.set('n', 'n', 'nzz')
-vim.keymap.set('n', 'N', 'Nzz')
-vim.keymap.set('n', '*', '*zz')
-vim.keymap.set('n', '#', '#zz')
-vim.keymap.set('n', 'g*', 'g*zz')
-vim.keymap.set('n', 'g#', 'g#zz')
-vim.keymap.set('n', '<C-o>', '<C-o>zz')
-vim.keymap.set('n', '<C-i>', '<C-i>zz')
+--vim.keymap.set('n', 'n', 'nzz')
+--vim.keymap.set('n', 'N', 'Nzz')
+--vim.keymap.set('n', '*', '*zz')
+--vim.keymap.set('n', '#', '#zz')
+--vim.keymap.set('n', 'g*', 'g*zz')
+--vim.keymap.set('n', 'g#', 'g#zz')
+--vim.keymap.set('n', '<C-o>', '<C-o>zz')
+--vim.keymap.set('n', '<C-i>', '<C-i>zz')
 vim.keymap.set('n', '<leader><leader>', '<cmd>noh<CR>')
 vim.keymap.set({'i', 'v'}, 'jk', '<esc>')
+vim.keymap.set({'n'}, 'Y', '^y$')
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>b', ':Pick buffers<CR>')
 vim.keymap.set('n', '<leader>hh', ':Pick help<CR>')
