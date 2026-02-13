@@ -168,7 +168,7 @@ vim.api.nvim_set_hl(0, "TreesitterContext", { bg = '#3c3836', blend = 0 })
 vim.opt.winblend = 12
 vim.opt.pumblend = 12
 vim.opt.colorcolumn = "81"
-vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#5d302b"})
+vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#2d2c2b"})
 
 
 -- [[ VIM UI ]]
@@ -263,7 +263,7 @@ vim.keymap.set('n', '<leader>hh', ':Pick help<CR>')
 vim.keymap.set('n', '<leader>g', ':Pick grep_live<CR>')
 vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>')
 vim.keymap.set('n', '<leader>E', ':lua MiniFiles.open()<CR>')
-vim.keymap.set('n', '<leader>ad', function()
+vim.keymap.set('n', '<leader>D', function()
     vim.diagnostic.setloclist({open = true})
 end, opts)
 vim.keymap.set('n', '<leader>d', function()
