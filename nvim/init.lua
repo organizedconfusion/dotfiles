@@ -4,17 +4,8 @@
 -- NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 
-require("config.keymaps")
-
--- [[ PLUGINS ]]
-vim.g.vimwiki_list = {
-    {
-        path = "~/vimwiki/",
-        syntax = "markdown",
-        ext = ".md",
-        path_space_char = '_'
-    },
-}
+-- Load all plugins
+-- See lua/plugins folder for configurations
 vim.pack.add {
     {src = "https://github.com/ellisonleao/gruvbox.nvim"},
     {src = "https://github.com/lewis6991/gitsigns.nvim"},
@@ -33,6 +24,19 @@ vim.pack.add {
         version = 'main'
     },
     {src = "https://github.com/vimwiki/vimwiki"},
+}
+
+require("config.keymaps")
+require("config.lsp")
+
+-- [[ PLUGINS ]]
+vim.g.vimwiki_list = {
+    {
+        path = "~/vimwiki/",
+        syntax = "markdown",
+        ext = ".md",
+        path_space_char = '_'
+    },
 }
 require('lualine').setup({
     theme = 'auto'
@@ -212,23 +216,6 @@ vim.opt.wrap = false
 vim.opt.breakindent = true
 
 
--- [[ LSP ]]
-vim.lsp.enable({'clangd', 'lua_ls', 'pyright'})
-vim.lsp.config("clangd", {
-    cmd = {
-        "clangd",
-        "--background-index",
-        "--clang-tidy",
-        "--header-insertion=iwyu",
-        "--completion-style=detailed",
-        "--fallback-style=none"
-    },
-})
-vim.diagnostic.config({
-    jump = { float = true }
-})
-
-
 -- [[ KEYMAPPINGS ]]
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>b', ':Pick buffers<CR>')
@@ -236,19 +223,6 @@ vim.keymap.set('n', '<leader>hh', ':Pick help<CR>')
 vim.keymap.set('n', '<leader>g', ':Pick grep_live<CR>')
 vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>')
 vim.keymap.set('n', '<leader>E', ':lua MiniFiles.open()<CR>')
-vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-        local bufnr = args.buf
-        local opts = { buffer = bufnr, noremap = true, silent = true }
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-        vim.keymap.set({'n', 'x'}, '<leader>cf', vim.lsp.buf.format, opts)
-    end,
-})
 
 -- Select keymaps
 vim.keymap.set({ "x", "o" }, "am", function()
