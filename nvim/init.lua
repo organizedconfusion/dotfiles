@@ -26,6 +26,7 @@ vim.pack.add {
     {src = "https://github.com/vimwiki/vimwiki"},
 }
 
+require("config.options")
 require("config.keymaps")
 require("config.lsp")
 
@@ -154,46 +155,6 @@ require("gitsigns").setup({
         map('n', '<leader>hb', gitsigns.blame)
     end
 })
-
-
--- [[ VIM UI ]]
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.cursorline = true
-vim.opt.scrolloff = 5
-vim.opt.ruler = true
-vim.opt.list = false
-vim.opt.listchars:append('space:·')
-vim.opt.visualbell = true
-vim.opt.showmatch = true
-vim.opt.signcolumn = "yes"
-vim.opt.winborder = "rounded"
-vim.opt.timeout = true
-vim.opt.timeoutlen = 300
-
--- Sync clipboard between OS and Neovim. Schedule the setting after `UiEnter` because it can
--- increase startup-time. Remove this option if you want your OS clipboard to remain independent.
--- See `:help 'clipboard'`
-vim.api.nvim_create_autocmd('UIEnter', {
-  callback = function()
-    vim.opt.clipboard = 'unnamedplus'
-  end,
-})
-
-
--- [[ TEXT FORMATTING ]]
-vim.opt.autoindent = true
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.shiftround = true
-vim.opt.expandtab = true
-vim.opt.linebreak = true
-vim.opt.wrap = false
-vim.opt.breakindent = true
-
 
 -- [[ KEYMAPPINGS ]]
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')

@@ -15,6 +15,5 @@ vim.api.nvim_set_hl(0, "FloatTitle", { link = "NormalFloat" })
 vim.api.nvim_set_hl(0, "TreesitterContext", { bg = '#3c3836', blend = 0 })
 vim.opt.winblend = 12
 vim.opt.pumblend = 12
-vim.opt.colorcolumn = "81"
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#2d2c2b"})
 
