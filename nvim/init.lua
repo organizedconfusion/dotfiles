@@ -4,6 +4,8 @@
 -- NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 
+require("config.keymaps")
+
 -- [[ PLUGINS ]]
 vim.g.vimwiki_list = {
     {
@@ -228,61 +230,12 @@ vim.diagnostic.config({
 
 
 -- [[ KEYMAPPINGS ]]
--- See `:h vim.keymap.set()`, `:h mapping`, `:h keycodes`
-
-vim.keymap.set('n', '<leader>wf', function()
-    vim.cmd("write")
-end, opts)
-vim.keymap.set('n', '<leader>wo', function()
-    vim.cmd("write")
-    vim.cmd("source")
-end, opts)
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-vim.keymap.set({ 't', 'i' }, '<A-h>', '<C-\\><C-n><C-w>h')
-vim.keymap.set({ 't', 'i' }, '<A-j>', '<C-\\><C-n><C-w>j')
-vim.keymap.set({ 't', 'i' }, '<A-k>', '<C-\\><C-n><C-w>k')
-vim.keymap.set({ 't', 'i' }, '<A-l>', '<C-\\><C-n><C-w>l')
-vim.keymap.set({ 'n' }, '<A-h>', '<C-w>h')
-vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
-vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
-vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
---vim.keymap.set('n', 'n', 'nzz')
---vim.keymap.set('n', 'N', 'Nzz')
---vim.keymap.set('n', '*', '*zz')
---vim.keymap.set('n', '#', '#zz')
---vim.keymap.set('n', 'g*', 'g*zz')
---vim.keymap.set('n', 'g#', 'g#zz')
---vim.keymap.set('n', '<C-o>', '<C-o>zz')
---vim.keymap.set('n', '<C-i>', '<C-i>zz')
-vim.keymap.set('n', '<leader><leader>', '<cmd>noh<CR>')
-vim.keymap.set({'i', 'v'}, 'jk', '<esc>')
-vim.keymap.set({'n'}, 'Y', '^y$')
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>b', ':Pick buffers<CR>')
 vim.keymap.set('n', '<leader>hh', ':Pick help<CR>')
 vim.keymap.set('n', '<leader>g', ':Pick grep_live<CR>')
 vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>')
 vim.keymap.set('n', '<leader>E', ':lua MiniFiles.open()<CR>')
-vim.keymap.set('n', '<leader>D', function()
-    vim.diagnostic.setloclist({open = true})
-end, opts)
-vim.keymap.set('n', '<leader>d', function()
-    vim.diagnostic.open_float()
-end, opts)
-vim.keymap.set('n', ']d', function()
-    vim.diagnostic.jump({count = 1, wrap = true})
-end, opts)
-vim.keymap.set('n', '[d', function()
-    vim.diagnostic.jump({count = -1, wrap = true})
-end, opts)
-vim.keymap.set(
-    'n',
-    '<leader>t',
-    function()
-        local today = vim.fn.strftime("# %Y-%m-%d")
-        vim.api.nvim_put({ today }, "c", true, true)
-    end
-)
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local bufnr = args.buf
