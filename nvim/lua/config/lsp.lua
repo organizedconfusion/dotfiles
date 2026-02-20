@@ -1,7 +1,7 @@
 -- [[ LSP Configuration ]]
 
 -- Add LSP
-vim.lsp.enable({ 'clangd', 'lua_ls', 'pyright' })
+vim.lsp.enable({ 'clangd', 'lua_ls', 'pyright', 'texlab' })
 
 -- Configure LSP
 vim.lsp.config("clangd", {

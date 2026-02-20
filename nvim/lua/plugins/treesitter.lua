@@ -14,6 +14,7 @@ local langs = {
     'gitcommit',
     'gitignore',
     'json',
+    'latex',
     'linkerscript',
     'lua',
     'make',
@@ -41,7 +42,8 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 require("treesitter-context").setup({
-    max_lines = 3
+    max_lines = 3,
+    trim_scope = 'outer'
 })
 
 require("nvim-treesitter-textobjects").setup {
@@ -108,6 +110,18 @@ end)
 vim.keymap.set({ "n", "x", "o" }, "[a", function()
     require("nvim-treesitter-textobjects.move").goto_previous_start({ "@parameter.inner" }, "textobjects")
 end)
+vim.keymap.set({ "n", "x", "o" }, "[s", function()
+    require("nvim-treesitter-textobjects.move").goto_previous_start({ "@block.outer" }, "textobjects")
+end)
+vim.keymap.set({ "n", "x", "o" }, "]s", function()
+    require("nvim-treesitter-textobjects.move").goto_next_start({ "@block.outer" }, "textobjects")
+end)
+vim.keymap.set({ "n", "x", "o" }, "[z", function()
+    require("nvim-treesitter-textobjects.move").goto_previous_start({ "@fold" }, "folds")
+end)
+vim.keymap.set({ "n", "x", "o" }, "]z", function()
+    require("nvim-treesitter-textobjects.move").goto_next_start({ "@fold" }, "folds")
+end)
 
 -- Swap keymaps
 vim.keymap.set("n", "<leader>a", function()
@@ -125,4 +139,3 @@ vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = t
 vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
 vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
 vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
-

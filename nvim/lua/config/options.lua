@@ -6,7 +6,7 @@ vim.opt.relativenumber = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.cursorline = true
-vim.opt.scrolloff = 6
+vim.opt.scrolloff = 8
 vim.opt.ruler = true
 vim.opt.list = false
 vim.opt.listchars:append('space:·')
@@ -16,7 +16,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.winborder = "rounded"
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
-vim.opt.colorcolumn = "81"
+vim.opt.colorcolumn = "101"
 
 -- Formatting 
 vim.opt.autoindent = true
