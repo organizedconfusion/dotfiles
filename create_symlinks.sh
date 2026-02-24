@@ -35,3 +35,6 @@ symlink_file "$SCRIPT_DIR/.bashrc.d" "$HOME/.bashrc.d"
 
 #### Tmux
 symlink_file "$SCRIPT_DIR/.tmux.conf" "$HOME/.tmux.conf"
+
+#### Ripgrep
+sylink_file "$SCRIPT_DIR/.ripgreprc" "$HOME/.ripgreprc"
