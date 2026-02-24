@@ -7,10 +7,7 @@ require('gruvbox').setup({
     contrast = ''
 })
 
-require('vague').setup()
-
 vim.cmd('colorscheme gruvbox')
---vim.cmd('colorscheme vague')
 
 vim.api.nvim_set_hl(0, 'TreesitterContext', {
     bg = vim.api.nvim_get_hl(0, { name = 'NormalFloat' }).bg,

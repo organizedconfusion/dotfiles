@@ -7,8 +7,6 @@ vim.g.mapleader = ' '
 -- See lua/plugins folder for configurations
 vim.pack.add {
     { src = 'https://github.com/ellisonleao/gruvbox.nvim' },
-    { src = 'https://github.com/vague-theme/vague.nvim' },
-    { src = 'https://github.com/navarasu/onedark.nvim' },
     { src = 'https://github.com/lewis6991/gitsigns.nvim' },
     { src = 'https://github.com/mason-org/mason.nvim' },
     { src = 'https://github.com/neovim/nvim-lspconfig' },
