@@ -38,8 +38,10 @@ vim.api.nvim_set_hl(0, 'DiagnosticSignError', { link = 'DiagnosticError' })
 vim.api.nvim_set_hl(0, 'DiagnosticSignInfo', { link = 'DiagnosticInfo' })
 vim.api.nvim_set_hl(0, 'DiagnosticSignHint', { link = 'DiagnosticHint' })
 
-vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'PmenuSel', { link = 'Visual' })
+pmenu = vim.api.nvim_get_hl(0, { name = 'Pmenu' })
+pmenusel = vim.api.nvim_get_hl(0, { name = 'PmenuSel' })
+vim.api.nvim_set_hl(0, 'Pmenu', { bg = pmenu.bg, blend = 0 })
+vim.api.nvim_set_hl(0, 'PmenuSel', { bg = pmenusel.bg, blend = 0 })
 
 vim.opt.winblend = 12
 vim.opt.pumblend = 12

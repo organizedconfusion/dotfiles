@@ -29,6 +29,10 @@ vim.opt.linebreak = true
 vim.opt.wrap = false
 vim.opt.breakindent = true
 
+vim.o.completeopt = 'menuone,noselect,fuzzy,nosort'
+vim.o.complete = '.,w,b'
+vim.o.pumheight = 20
+
 vim.api.nvim_create_autocmd("InsertEnter", { command = 'set norelativenumber' })
 vim.api.nvim_create_autocmd("InsertLeave", { command = 'set relativenumber' })
 

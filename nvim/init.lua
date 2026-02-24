@@ -29,6 +29,7 @@ vim.pack.add {
     },
     { src = 'https://github.com/vimwiki/vimwiki' },
     { src = 'https://github.com/xiyaowong/virtcolumn.nvim' },
+    { src = 'https://github.com/rafamadriz/friendly-snippets' },
 }
 
 require('config.options')

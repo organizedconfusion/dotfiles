@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "friendly-snippets": {
+      "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
+      "src": "https://github.com/rafamadriz/friendly-snippets"
+    },
     "gitsigns.nvim": {
       "rev": "abf82a65f185bd54adc0679f74b7d6e1ada690c9",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
@@ -16,6 +20,10 @@
       "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
       "src": "https://github.com/mason-org/mason.nvim"
     },
+    "mini.completion": {
+      "rev": "4f94cafdeef02bf3ef9997cd6862658801caa22c",
+      "src": "https://github.com/nvim-mini/mini.completion"
+    },
     "mini.files": {
       "rev": "fafacfecdd6c5a66bb10d173a749f3c098e84498",
       "src": "https://github.com/nvim-mini/mini.files"
@@ -31,6 +39,10 @@
     "mini.pick": {
       "rev": "7c0a674f620ddc701903b887b2dade836b23ea79",
       "src": "https://github.com/echasnovski/mini.pick"
+    },
+    "mini.snippets": {
+      "rev": "0d0b435e3f9563965f73703a6a6d17acb432a93c",
+      "src": "https://github.com/nvim-mini/mini.snippets"
     },
     "mini.surround": {
       "rev": "f9358544ed06bc10197e698b7fc8dc5963be3f4b",
@@ -56,6 +68,10 @@
     "vimwiki": {
       "rev": "72792615e739d0eb54a9c8f7e0a46a6e2407c9e8",
       "src": "https://github.com/vimwiki/vimwiki"
+    },
+    "virtcolumn.nvim": {
+      "rev": "4d385b4aa42aa3af6fa2cb8527462fa4badbd163",
+      "src": "https://github.com/xiyaowong/virtcolumn.nvim"
     }
   }
 }
