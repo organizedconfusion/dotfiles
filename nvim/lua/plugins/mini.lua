@@ -16,15 +16,10 @@ require('mini.surround').setup()
 
 -- Tab mapping
 local snippets = require('mini.snippets')
-local match_strict = function(snips)
-    -- Do not match with whitespace to cursor's left
-    return snippets.default_match(snips, { pattern_fuzzy = '%S+' })
-end
 
 local gen_loader = require('mini.snippets').gen_loader
 snippets.setup({
-    mappings = { expand = '', jump_next = '', jump_prev = '' },
-    expand   = { match = match_strict },
+    mappings = { expand = '<C-j>', jump_next = '', jump_prev = '' },
     snippets = {
         -- Load custom file with global snippets first (adjust for Windows)
         gen_loader.from_file('~/.config/nvim/snippets/global.json'),
@@ -36,10 +31,6 @@ snippets.setup({
 })
 
 local expand_or_jump = function()
-    local can_expand = #MiniSnippets.expand({ insert = false }) > 0
-    if can_expand then
-        vim.schedule(MiniSnippets.expand); return ''
-    end
     local is_active = MiniSnippets.session.get() ~= nil
     if is_active then
         MiniSnippets.session.jump('next'); return ''
