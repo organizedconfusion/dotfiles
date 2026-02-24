@@ -123,6 +123,10 @@ vim.keymap.set({ "n", "x", "o" }, "]z", function()
     require("nvim-treesitter-textobjects.move").goto_next_start({ "@fold" }, "folds")
 end)
 
+vim.keymap.set("n", "[x", function()
+  require("treesitter-context").go_to_context(vim.v.count1)
+end, { silent = true })
+
 -- Swap keymaps
 vim.keymap.set("n", "<leader>a", function()
     require("nvim-treesitter-textobjects.swap").swap_next "@parameter.inner"

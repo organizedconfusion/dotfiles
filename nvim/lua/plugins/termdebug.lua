@@ -16,6 +16,7 @@ local function start_remote_debug()
                 end
             end
             vim.cmd('Gdb')
+            vim.cmd('wincmd L')
             vim.cmd('wincmd 40<')
             vim.cmd('Source')
         end,

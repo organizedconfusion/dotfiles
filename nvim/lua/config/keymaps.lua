@@ -68,3 +68,4 @@ map('n', '<leader>m', function()
     vim.cmd('make')
     vim.cmd('cwindow')
 end, { desc = "Call make and open the quickfix window if there are errors." })
+

@@ -12,6 +12,13 @@ require('mini.pick').setup({
     }
 })
 require('mini.surround').setup()
+require('mini.snippets').setup()
+require('mini.completion').setup({
+    window = {
+        info = { border = 'rounded' },
+        signature = { border = 'rounded' },
+    }
+})
 
 -- Keymaps
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
