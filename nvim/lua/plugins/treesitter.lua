@@ -42,8 +42,8 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 require("treesitter-context").setup({
-    max_lines = 3,
-    trim_scope = 'outer'
+    max_lines = 4,
+    trim_scope = 'outer',
 })
 
 require("nvim-treesitter-textobjects").setup {
