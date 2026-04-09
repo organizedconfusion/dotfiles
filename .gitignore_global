@@ -5,3 +5,5 @@
 *.bak
 *.cache
 compile_commands.json
+build/
+.env
