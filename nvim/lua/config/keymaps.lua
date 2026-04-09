@@ -69,3 +69,10 @@ map('n', '<leader>m', function()
     vim.cmd('cwindow')
 end, { desc = "Call make and open the quickfix window if there are errors." })
 
+map('n', '<leader>tw', function()
+    vim.cmd([[%s/\s\+$//ec]])
+    vim.cmd('noh')
+end, { desc = "Trim trailing whitespace with confirmation" })
+
+map('n', 'gp', '"0p')
+map('n', 'gP', '"0P')
