@@ -2,12 +2,30 @@
 	name = organizedconfusion
 	email = github@underclocked.com
 [core]
-	autocrlf = input
-	editor = nvim
-	excludesfile = ~/.gitignore_global
+    autocrlf = input
+    editor = nvim
+    excludesfile = ~/.gitignore_global
+[init]
+    defaultBranch = main
 [pull]
-	rebase = true
+    rebase = false
+    ff = true
 [color]
-	ui = auto
+    ui = auto
 [alias]
     st = status
+    lg = log --oneline --graph --decorate
+    lga = log --all --oneline --graph --decorate
+[rebase]
+    autosquash = true
+[commit]
+    verbose = true
+[help]
+    autocorrect = immediate
+[diff]
+    algorithm = histogram
+[merge]
+    conflictstyle = zdiff3
+    tool = nvimdiff
+[rerere]
+    enabled = true

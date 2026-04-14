@@ -16,7 +16,7 @@ vim.opt.signcolumn = 'yes'
 vim.opt.winborder = 'rounded'
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
-vim.opt.colorcolumn = '100'
+vim.opt.colorcolumn = '110'
 
 -- Formatting 
 vim.opt.autoindent = true

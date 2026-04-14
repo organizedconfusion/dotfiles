@@ -1,5 +1,9 @@
 -- [[ treesitter setup ]]
---
+require('nvim-treesitter').setup {
+  -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
+  install_dir = vim.fn.stdpath('data') .. '/site'
+}
+
 vim.keymap.set({ 'x' }, '[n', function()
     require 'vim.treesitter._select'.select_prev(vim.v.count1)
 end, { desc = 'Select previous treesitter node' })
@@ -91,10 +95,10 @@ end)
 vim.keymap.set({ "x", "o" }, "ia", function()
     require "nvim-treesitter-textobjects.select".select_textobject("@parameter.inner", "textobjects")
 end)
-vim.keymap.set({ "x", "o" }, "ab", function()
+vim.keymap.set({ "x", "o" }, "ao", function()
     require "nvim-treesitter-textobjects.select".select_textobject("@block.outer", "textobjects")
 end)
-vim.keymap.set({ "x", "o" }, "ib", function()
+vim.keymap.set({ "x", "o" }, "io", function()
     require "nvim-treesitter-textobjects.select".select_textobject("@block.inner", "textobjects")
 end)
 vim.keymap.set({ "x", "o" }, "as", function()
@@ -159,10 +163,10 @@ end)
 vim.keymap.set({ "n", "x", "o" }, "[a", function()
     require("nvim-treesitter-textobjects.move").goto_previous_start({ "@parameter.inner" }, "textobjects")
 end)
-vim.keymap.set({ "n", "x", "o" }, "[b", function()
+vim.keymap.set({ "n", "x", "o" }, "[o", function()
     require("nvim-treesitter-textobjects.move").goto_previous_start({ "@block.outer" }, "textobjects")
 end)
-vim.keymap.set({ "n", "x", "o" }, "]b", function()
+vim.keymap.set({ "n", "x", "o" }, "]o", function()
     require("nvim-treesitter-textobjects.move").goto_next_start({ "@block.outer" }, "textobjects")
 end)
 vim.keymap.set({ "n", "x", "o" }, "[i", function()

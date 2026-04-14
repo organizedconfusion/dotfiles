@@ -17,6 +17,7 @@ require("gitsigns").setup({
         changedelete = { text = '~' },
         untracked    = { text = '┆' },
     },
+    word_diff = false,
     on_attach = function(bufnr)
         local gitsigns = require('gitsigns')
 
