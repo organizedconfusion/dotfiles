@@ -26,6 +26,7 @@ vim.api.nvim_set_hl(0, 'FloatTitle', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'MiniPickPromptPrefix', { link = 'MiniPickPrompt' })
 vim.api.nvim_set_hl(0, 'MiniPickPromptCaret', { link = 'MiniPickPrompt' })
+vim.api.nvim_set_hl(0, 'MiniFilesTitle', { link = 'FloatTitle' })
 
 vim.api.nvim_set_hl(0, 'DiagnosticSignWarn', { link = 'DiagnosticWarn' })
 vim.api.nvim_set_hl(0, 'DiagnosticSignError', { link = 'DiagnosticError' })

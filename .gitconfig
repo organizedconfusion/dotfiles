@@ -8,9 +8,13 @@
     pager = delta
 [interactive]
     diffFilter = delta --color-only
+[include]
+    path = ~/delta/themes.gitconfig
 [delta]
+    features = gruvmax-fang
     navigate = true
     line-numbers = true
+    side-by-side = false
 [init]
     defaultBranch = main
 [pull]
@@ -30,6 +34,7 @@
     autocorrect = immediate
 [diff]
     algorithm = histogram
+    tool = nvimdiff
 [merge]
     conflictstyle = zdiff3
     tool = nvimdiff
