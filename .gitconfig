@@ -34,7 +34,10 @@
     autocorrect = immediate
 [diff]
     algorithm = histogram
+    colorMoved = default
     tool = nvimdiff
+[difftool]
+    prompt = true
 [merge]
     conflictstyle = zdiff3
     tool = nvimdiff

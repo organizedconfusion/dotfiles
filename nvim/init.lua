@@ -27,7 +27,7 @@ vim.pack.add {
         version = 'main'
     },
     { src = 'https://github.com/vimwiki/vimwiki' },
-    { src = 'https://github.com/xiyaowong/virtcolumn.nvim' },
+    -- { src = 'https://github.com/xiyaowong/virtcolumn.nvim' },
     { src = 'https://github.com/rafamadriz/friendly-snippets' },
     { src = 'https://github.com/alexghergh/nvim-tmux-navigation' }
 }
