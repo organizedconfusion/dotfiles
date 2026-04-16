@@ -24,14 +24,15 @@
     ui = auto
 [alias]
     st = status
-    lg = log --oneline --graph --decorate
-    lga = log --all --oneline --graph --decorate
+    log-graph = log --oneline --graph --decorate
+    tree = log --all --oneline --graph --decorate
+    diffs = -c delta.side-by-side=true diff
 [rebase]
     autosquash = true
 [commit]
     verbose = true
 [help]
-    autocorrect = immediate
+    autocorrect = prompt
 [diff]
     algorithm = histogram
     colorMoved = default
