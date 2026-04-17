@@ -58,6 +58,7 @@
     plus-style = syntax "#34381b"
     plus-emph-style = syntax "#4E5429"
     plus-non-emph-style = plus-style
+    map-styles = bold purple => syntax "#3E2A4A", bold cyan => syntax "#243F45"
     whitespace-error-style = "#FB4934" reverse
     # Blame
     blame-code-style = syntax

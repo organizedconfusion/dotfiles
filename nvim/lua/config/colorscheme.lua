@@ -34,3 +34,6 @@ vim.api.nvim_set_hl(0, 'DiagnosticSignInfo', { link = 'DiagnosticInfo' })
 vim.api.nvim_set_hl(0, 'DiagnosticSignHint', { link = 'DiagnosticHint' })
 
 vim.api.nvim_set_hl(0, 'debugPC', { link = 'DiffAdd' })
+
+vim.api.nvim_set_hl(0, 'DiffText', { bg = '#15515D' })
+
