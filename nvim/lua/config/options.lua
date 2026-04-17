@@ -33,6 +33,10 @@ vim.o.completeopt = 'menuone,noselect,fuzzy,nosort'
 vim.o.complete = '.,w,b'
 vim.o.pumheight = 20
 
+vim.opt.fillchars = {
+    diff = " ",
+}
+
 vim.g.c_syntax_for_h = 1
 
 vim.o.exrc = true
