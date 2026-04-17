@@ -20,12 +20,17 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 #### Nvim
 
-symlink_file "$SCRIPT_DIR/nvim" "$HOME/.config/nvim" 
+symlink_file "$SCRIPT_DIR/nvim" "$HOME/.config/nvim"
+
+#### Vim
+
+symlink_file "$SCRIPT_DIR/.vimrc" "$HOME/.vimrc"
 
 #### Git
 
-symlink_file "$SCRIPT_DIR/.gitconfig" "$HOME/.gitconfig" 
+symlink_file "$SCRIPT_DIR/.gitconfig" "$HOME/.gitconfig"
 symlink_file "$SCRIPT_DIR/.gitignore_global" "$HOME/.gitignore_global"
+symlink_file "$SCRIPT_DIR/deltathemes.gitconfig" "$HOME/deltathemes.gitconfig"
 
 #### Bash
 

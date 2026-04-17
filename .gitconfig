@@ -9,9 +9,9 @@
 [interactive]
     diffFilter = delta --color-only
 [include]
-    path = ~/delta/themes.gitconfig
+    path = ~/deltathemes.gitconfig
 [delta]
-    features = gruvmax-fang
+    features = sean
     navigate = true
     line-numbers = true
     side-by-side = false
