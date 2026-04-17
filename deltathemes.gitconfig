@@ -52,11 +52,11 @@
     line-numbers-right-format = " {np:>3} │"
     # Diff contents
     inline-hint-style = syntax
-    minus-style = syntax "#4F2A2A"
-    minus-emph-style = syntax "#643737"
+    minus-style = syntax "#402120"
+    minus-emph-style = syntax "#603230"
     minus-non-emph-style = minus-style
-    plus-style = syntax "#1F3A1F"
-    plus-emph-style = syntax "#355B35"
+    plus-style = syntax "#34381b"
+    plus-emph-style = syntax "#4E5429"
     plus-non-emph-style = plus-style
     whitespace-error-style = "#FB4934" reverse
     # Blame

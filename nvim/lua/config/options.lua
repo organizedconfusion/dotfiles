@@ -38,6 +38,26 @@ vim.g.c_syntax_for_h = 1
 vim.o.exrc = true
 vim.o.secure = true
 
+local function with_linematch_disabled(fn)
+  local old = vim.o.diffopt
+  -- remove linematch completely
+  vim.o.diffopt = old:gsub(",?linematch:%d+", ""):gsub(",?linematch", "")
+  pcall(fn)
+  vim.o.diffopt = old
+end
+
+vim.api.nvim_create_user_command("Diffget", function(opts)
+  with_linematch_disabled(function()
+    vim.cmd("diffget " .. opts.args)
+  end)
+end, { nargs = 1, complete = "buffer" })
+
+vim.api.nvim_create_user_command("Diffput", function(opts)
+  with_linematch_disabled(function()
+    vim.cmd("diffput " .. opts.args)
+  end)
+end, { nargs = 1, complete = "buffer" })
+
 vim.api.nvim_create_autocmd("InsertEnter", { command = 'set norelativenumber' })
 vim.api.nvim_create_autocmd("InsertLeave", { command = 'set relativenumber' })
 

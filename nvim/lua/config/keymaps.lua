@@ -74,5 +74,13 @@ map('n', '<leader>tw', function()
     vim.cmd('noh')
 end, { desc = "Trim trailing whitespace with confirmation" })
 
+map('n', '<leader>dl', function()
+    vim.cmd('Diffget LOCAL')
+end, {desc = 'Use custom Diffget command on local buffer'})
+
+map('n', '<leader>dr', function()
+    vim.cmd('Diffget REMOTE')
+end, {desc = 'Use custom Diffget command on remote buffer'})
+
 map('n', 'gp', '"0p')
 map('n', 'gP', '"0P')
