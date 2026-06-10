@@ -37,7 +37,7 @@
     autocorrect = prompt
 [diff]
     algorithm = histogram
-    colorMoved = default
+    ; colorMoved = default
     tool = nvimdiff
 [difftool]
     prompt = true

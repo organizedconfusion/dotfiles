@@ -8,6 +8,7 @@ vim.g.mapleader = ' '
 vim.pack.add {
     { src = 'https://github.com/ellisonleao/gruvbox.nvim' },
     { src = 'https://github.com/sainnhe/gruvbox-material' },
+    { src = 'https://github.com/neanias/everforest-nvim' },
     { src = 'https://github.com/lewis6991/gitsigns.nvim' },
     { src = 'https://github.com/mason-org/mason.nvim' },
     { src = 'https://github.com/neovim/nvim-lspconfig' },
@@ -29,7 +30,9 @@ vim.pack.add {
     { src = 'https://github.com/vimwiki/vimwiki' },
     -- { src = 'https://github.com/xiyaowong/virtcolumn.nvim' },
     { src = 'https://github.com/rafamadriz/friendly-snippets' },
-    { src = 'https://github.com/alexghergh/nvim-tmux-navigation' }
+    { src = 'https://github.com/alexghergh/nvim-tmux-navigation' },
+    { src = 'https://github.com/mfussenegger/nvim-dap' },
+    { src = 'https://github.com/igorlfs/nvim-dap-view' }
 }
 
 require('config.options')
@@ -44,4 +47,5 @@ require('plugins.mason')
 require('plugins.treesitter')
 require('plugins.termdebug')
 require('plugins.nvim-tmux-navigation')
+require('plugins.dap')
 

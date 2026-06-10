@@ -12,11 +12,13 @@ vim.opt.list = false
 vim.opt.listchars:append('space:·')
 vim.opt.visualbell = true
 vim.opt.showmatch = true
-vim.opt.signcolumn = 'yes:1'
+-- vim.opt.signcolumn = 'yes:1'
 vim.opt.winborder = 'rounded'
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
 -- vim.opt.colorcolumn = '110'
+vim.opt.mouse = 'a'
+vim.opt.mousemoveevent = true
 
 -- Formatting 
 vim.opt.autoindent = true

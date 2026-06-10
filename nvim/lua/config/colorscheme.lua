@@ -7,6 +7,9 @@ require('gruvbox').setup({
     contrast = ''
 })
 
+require('everforest').setup({
+})
+
 vim.g.gruvbox_material_background = 'medium'
 vim.g.gruvbox_material_foreground = 'material'
 vim.g.gruvbox_material_enable_bold = '1'
@@ -14,6 +17,7 @@ vim.g.gruvbox_material_transparent_background = '0'
 
 -- vim.cmd('colorscheme gruvbox')
 vim.cmd('colorscheme gruvbox-material')
+-- vim.cmd('colorscheme everforest')
 
 vim.api.nvim_set_hl(0, 'TreesitterContext', {
     bg = vim.api.nvim_get_hl(0, { name = 'NormalFloat' }).bg

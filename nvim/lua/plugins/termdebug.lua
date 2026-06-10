@@ -24,10 +24,9 @@ local function start_remote_debug()
     vim.cmd('Termdebug')
 end
 
--- Termdebug keymaps
-vim.g.termdebugger = {
-    'gdb-multiarch',
-    '-q',
+vim.g.termdebug_config = {
+    command = { 'gdb-multiarch', '-q' },
+    sign_decimal = 1,
 }
 
 vim.keymap.set('n', '<F1>', function()

@@ -1,20 +1,55 @@
 -- [[ LSP Configuration ]]
 
--- Add LSP
-vim.lsp.enable({ 'clangd', 'lua_ls', 'pyright', 'texlab' })
-
 -- Configure LSP
 vim.lsp.config("clangd", {
     cmd = {
         "clangd",
-        "--query-driver=/home/sean/common/gcc/ubuntu/7.3/bin",
+        "--query-driver=" ..
+            "/home/sean/common/gcc/ubuntu/7.3/bin/arm-none-eabi-gcc," ..
+            "/home/sean/common/gcc/ubuntu/7.3/bin/arm-none-eabi-g++",
         "--background-index",
         "--clang-tidy",
         "--header-insertion=iwyu",
         "--completion-style=detailed",
-        "--fallback-style=none"
+        "--fallback-style=none",
+        "--log=verbose"
     },
 })
+
+vim.lsp.config("pyright", {
+    cmd = { 'pyright-langserver', '--stdio' },
+    filetypes = { 'python' },
+    root_markers = {
+        'pyproject.toml',
+        'setup.py',
+        'setup.cfg',
+        'requirements.txt',
+        '.git',
+    },
+
+    settings = {
+        python = {
+            analysis = {
+                typeCheckingMode = "basic", -- or "strict"
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "workspace", -- or "openFilesOnly"
+            },
+        },
+    },
+})
+
+vim.lsp.config("ruff", {
+  init_options = {
+    settings = {
+      organizeImports = true,
+    },
+  },
+})
+
+-- Add LSP
+vim.lsp.enable({ 'clangd', 'lua_ls', 'pyright', 'texlab', 'ruff' })
+
 
 -- Keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
