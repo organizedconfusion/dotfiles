@@ -19,6 +19,10 @@ require("dap-view").setup({
             },
         }
     },
+    windows = {
+        size = 0.33,
+        position = "right"
+    }
 })
 
 dap.adapters.gdb = {
@@ -26,6 +30,32 @@ dap.adapters.gdb = {
     command = "gdb-multiarch",
     args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
 }
+
+dap.adapters.python = {
+    type = "executable",
+    command = "python",  -- uses current python (IMPORTANT: your venv)
+    args = { "-m", "debugpy.adapter" },
+}
+
+dap.configurations.python = {
+    {
+        type = "python",
+        request = "launch",
+        name = "Launch file",
+
+        program = "${file}",
+
+        pythonPath = function()
+            -- use venv if active
+            local venv = os.getenv("VIRTUAL_ENV")
+            if venv then
+                return venv .. "/bin/python"
+            end
+            return "python"
+        end,
+    },
+}
+
 
 vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
 vim.keymap.set('n', '<F8>', function() require('dap').pause() end)
