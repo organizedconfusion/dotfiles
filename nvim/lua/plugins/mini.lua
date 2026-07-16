@@ -20,12 +20,12 @@ require('mini.indentscope').setup({
     },
     mappings = {
         -- Textobjects
-        object_scope = 'id',
-        object_scope_with_border = 'ad',
+        object_scope = 'it',
+        object_scope_with_border = 'at',
 
         -- Motions (jump to respective border line; if not present - body line)
-        goto_top = '[d',
-        goto_bottom = ']d',
+        goto_top = '[t',
+        goto_bottom = ']t',
     },
     options = {
         try_as_border = true,
