@@ -13,6 +13,28 @@ require('mini.pick').setup({
     }
 })
 require('mini.surround').setup()
+require('mini.indentscope').setup({
+    draw = {
+        delay = 150,
+        animation = require('mini.indentscope').gen_animation.none(),
+    },
+    mappings = {
+        -- Textobjects
+        object_scope = 'id',
+        object_scope_with_border = 'ad',
+
+        -- Motions (jump to respective border line; if not present - body line)
+        goto_top = '[d',
+        goto_bottom = ']d',
+    },
+    options = {
+        try_as_border = true,
+    },
+})
+
+vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", {
+    link = "NonText",
+})
 
 -- Tab mapping
 local snippets = require('mini.snippets')

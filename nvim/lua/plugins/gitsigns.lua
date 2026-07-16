@@ -49,5 +49,12 @@ require("gitsigns").setup({
         map('n', '<leader>hp', gitsigns.preview_hunk)
         map('n', '<leader>hd', gitsigns.diffthis)
         map('n', '<leader>hb', gitsigns.blame)
+        map('n', '<leader>hl', gitsigns.toggle_current_line_blame)
+
+        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", {
+            link = nil,
+            fg = vim.api.nvim_get_hl(0, { name = "NonText" }).fg,
+            italic = true,
+        })
     end
 })

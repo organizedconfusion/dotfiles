@@ -20,6 +20,7 @@ vim.pack.add {
     { src = 'https://github.com/nvim-mini/mini.surround' },
     { src = 'https://github.com/nvim-mini/mini.snippets' },
     { src = 'https://github.com/nvim-mini/mini.completion' },
+    { src = 'https://github.com/nvim-mini/mini.indentscope' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
     { src = 'https://github.com/vimwiki/vimwiki' },
