@@ -12,8 +12,8 @@ vim.opt.list = false
 vim.opt.listchars:append('space:·')
 vim.opt.visualbell = true
 vim.opt.showmatch = true
---vim.opt.signcolumn = 'yes:2'
-vim.opt.signcolumn = 'number'
+vim.opt.signcolumn = 'yes:1'
+vim.opt.numberwidth = 4
 vim.opt.winborder = 'rounded'
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300

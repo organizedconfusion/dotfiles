@@ -67,6 +67,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
             local enabled = vim.lsp.inlay_hint.is_enabled()
             vim.lsp.inlay_hint.enable(not enabled)
         end, opts)
+        if vim.opt.diff:get() then
+            vim.lsp.buf_detach_client(args.buf, args.data.client_id)
+        end
     end,
 })
 
