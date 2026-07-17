@@ -37,16 +37,15 @@ vim.pack.add {
 }
 
 require('config.options')
-require('config.colorscheme')
 require('config.keymaps')
 require('config.lsp')
+require('config.colorscheme')
+require('plugins.lualine')
 require('plugins.gitsigns')
 require('plugins.vimwiki')
-require('plugins.lualine')
 require('plugins.mini')
 require('plugins.mason')
 require('plugins.treesitter')
 require('plugins.termdebug')
 require('plugins.nvim-tmux-navigation')
 require('plugins.dap')
-

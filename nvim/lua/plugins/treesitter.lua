@@ -72,6 +72,21 @@ vim.api.nvim_create_autocmd('FileType', {
 require("treesitter-context").setup({
     max_lines = 4,
     trim_scope = 'outer',
+    separator = '─'
+})
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+        local nontext = vim.api.nvim_get_hl(0, { name = 'NonText' })
+
+        vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', {
+            fg = nontext.fg,
+        })
+
+        vim.api.nvim_set_hl(0, 'TreesitterContext', {
+            bg = 'none',
+        })
+    end,
 })
 
 require("nvim-treesitter-textobjects").setup {

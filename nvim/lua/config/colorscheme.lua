@@ -42,11 +42,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, 'debugPC', { link = 'DiffAdd' })
 
         vim.api.nvim_set_hl(0, 'DiffText', { bg = '#15515D' })
-
-        vim.api.nvim_set_hl(0, 'TreesitterContext', {
-            bg = vim.api.nvim_get_hl(0, { name = 'NormalFloat' }).bg
-        })
-
     end,
 })
 
