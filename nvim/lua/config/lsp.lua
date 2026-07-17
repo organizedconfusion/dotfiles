@@ -12,7 +12,7 @@ vim.lsp.config("clangd", {
         "--header-insertion=iwyu",
         "--completion-style=detailed",
         "--fallback-style=none",
-        "--log=verbose"
+        "--log=error"
     },
 })
 
@@ -67,8 +67,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
             local enabled = vim.lsp.inlay_hint.is_enabled()
             vim.lsp.inlay_hint.enable(not enabled)
         end, opts)
-        if vim.opt.diff:get() then
-            vim.lsp.buf_detach_client(args.buf, args.data.client_id)
+        if vim.wo.diff then
+            vim.diagnostic.enable(false, { bufnr = args.buf })
         end
     end,
 })
