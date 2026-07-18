@@ -69,7 +69,7 @@ map('n', '<leader>m', function()
     vim.cmd('cwindow')
 end, { desc = "Call make and open the quickfix window if there are errors." })
 
-map({'n', 'x'}, '<leader>tw', [[:s/\s\+$//e<CR>]], { desc = 'Trim trailing whitespace' })
+map({'n', 'x'}, '<leader>tw', [[:s/\s\+$//e<CR>:noh<CR>]], { desc = 'Trim trailing whitespace' })
 
 map('n', '<leader>dl', function()
     vim.cmd('Diffget LOCAL')
