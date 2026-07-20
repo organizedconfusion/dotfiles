@@ -21,6 +21,7 @@ vim.opt.timeoutlen = 300
 vim.opt.mouse = 'a'
 vim.opt.mousemoveevent = true
 vim.opt.guicursor='n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor'
+vim.opt.laststatus = 2
 
 -- Formatting
 vim.opt.autoindent = true
