@@ -63,6 +63,16 @@ map('n', '<leader>t', function()
     vim.api.nvim_put({ today }, "c", true, true)
 end, { desc = "Put the current date string as YYYY-MM-DD." })
 
+vim.keymap.set('n', '<leader>td', function()
+    local buf = vim.api.nvim_get_current_buf()
+
+    if vim.diagnostic.is_enabled({ bufnr = buf }) then
+        vim.diagnostic.enable(false, { bufnr = buf })
+    else
+        vim.diagnostic.enable(true, { bufnr = buf })
+    end
+end, { desc = 'Toggle diagnostics (buffer)' })
+
 map('n', '<leader>m', function()
     vim.cmd('write')
     vim.cmd('make')

@@ -28,8 +28,8 @@
     tree = log --branches --remotes --tags --graph --decorate-refs-exclude=HEAD --pretty=format:'%C(yellow)%h%Creset %s%C(auto)%d%Creset%n%b'
     diffs = -c delta.side-by-side=true diff
     shows = -c delta.side-by-side=true show
-    br = !git checkout $(git branch | fzf)
-    glog = !git log --oneline --all --color=always \
+    br = !git switch $(git branch | grep -v '^*' | fzf)
+    glog = !git log --oneline --color=always \
         | fzf -m --no-sort --layout=reverse --ansi --preview='git show --format="" {1} | delta' \
         | awk '{print $1}'
 [rebase]
