@@ -29,6 +29,7 @@ require('mini.indentscope').setup({
     },
     options = {
         try_as_border = true,
+        indent_at_cursor = false
     },
 })
 
