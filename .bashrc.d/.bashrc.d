@@ -1,1 +1,0 @@
-/home/sean/dotfiles/.bashrc.d
