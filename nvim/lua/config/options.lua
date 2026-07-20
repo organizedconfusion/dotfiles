@@ -1,6 +1,6 @@
 -- [[ Neovim Options ]]
 
--- UI 
+-- UI
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.ignorecase = true
@@ -20,8 +20,9 @@ vim.opt.timeoutlen = 300
 -- vim.opt.colorcolumn = '110'
 vim.opt.mouse = 'a'
 vim.opt.mousemoveevent = true
+vim.opt.guicursor='n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor'
 
--- Formatting 
+-- Formatting
 vim.opt.autoindent = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4

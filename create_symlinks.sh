@@ -43,3 +43,6 @@ symlink_file "$SCRIPT_DIR/.tmux.conf" "$HOME/.tmux.conf"
 
 #### Ripgrep
 symlink_file "$SCRIPT_DIR/ripgreprc" "$HOME/ripgreprc"
+
+#### Bat (for delta theme)
+symlink_file "$SCRIPT_DIR/bat" "$HOME/.config/bat"

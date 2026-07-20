@@ -1,6 +1,8 @@
 # Git branch in prompt
 if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
-    source /usr/share/git-core/contrib/completion/git-prompt.sh  
+    source /usr/share/git-core/contrib/completion/git-prompt.sh
+elif [ -f /usr/lib/git-core/git-sh-prompt ]; then
+    source /usr/lib/git-core/git-sh-prompt
 fi
 
 export GIT_PS1_SHOWDIRTYSTATE=1

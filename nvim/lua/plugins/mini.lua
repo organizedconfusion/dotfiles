@@ -15,7 +15,7 @@ require('mini.pick').setup({
 require('mini.surround').setup()
 require('mini.indentscope').setup({
     draw = {
-        delay = 150,
+        delay = 250,
         animation = require('mini.indentscope').gen_animation.none(),
     },
     mappings = {
