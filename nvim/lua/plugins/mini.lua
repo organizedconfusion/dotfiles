@@ -28,7 +28,7 @@ require('mini.indentscope').setup({
         goto_bottom = ']t',
     },
     options = {
-        try_as_border = true,
+        try_as_border = false,
         indent_at_cursor = false
     },
 })
