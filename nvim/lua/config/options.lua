@@ -1,5 +1,12 @@
 -- [[ Neovim Options ]]
 
+local clean_mode = false
+
+local my = {
+    signcolumn = 'yes:1',
+    laststatus = 2
+}
+
 -- UI
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -12,7 +19,7 @@ vim.opt.list = false
 vim.opt.listchars:append('space:·')
 vim.opt.visualbell = true
 vim.opt.showmatch = true
-vim.opt.signcolumn = 'yes:1'
+vim.opt.signcolumn = my.signcolumn
 vim.opt.numberwidth = 4
 vim.opt.winborder = 'rounded'
 vim.opt.timeout = true
@@ -21,7 +28,9 @@ vim.opt.timeoutlen = 300
 vim.opt.mouse = 'a'
 vim.opt.mousemoveevent = true
 vim.opt.guicursor='n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor'
-vim.opt.laststatus = 2
+vim.opt.laststatus = my.laststatus
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 -- Formatting
 vim.opt.autoindent = true
@@ -67,8 +76,28 @@ vim.api.nvim_create_user_command("Diffput", function(opts)
   end)
 end, { nargs = 1, complete = "buffer" })
 
-vim.api.nvim_create_autocmd("InsertEnter", { command = 'set norelativenumber' })
-vim.api.nvim_create_autocmd("InsertLeave", { command = 'set relativenumber' })
+vim.api.nvim_create_autocmd("InsertEnter", {
+    callback = function()
+       print("clean_mode =", clean_mode)
+       if clean_mode then
+            return
+        end
+
+        vim.opt.relativenumber = false
+    end,
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+    callback = function()
+        print("clean_mode =", clean_mode)
+
+        if clean_mode then
+            return
+        end
+
+        vim.opt.relativenumber = true
+    end,
+})
 
 -- Sync clipboard between OS and Neovim. Schedule the setting after `UiEnter` because it can
 -- increase startup-time. Remove this option if you want your OS clipboard to remain independent.
@@ -87,3 +116,84 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.hl_op()
   end,
 })
+
+-- Clean / zen mode
+
+local saved = {
+    inlay_hints = nil,
+    line_blame = nil,
+}
+
+local function toggle_clean_mode()
+    if not clean_mode then
+
+        -- save current states
+        if vim.lsp.inlay_hint and vim.lsp.inlay_hint.is_enabled then
+            saved.inlay_hints = vim.lsp.inlay_hint.is_enabled()
+        end
+
+        saved.line_blame = vim.b.gitsigns_current_line_blame
+
+        clean_mode = true
+
+        vim.diagnostic.enable(false)
+
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+            vim.wo[win].number = false
+            vim.wo[win].relativenumber = false
+            vim.wo[win].signcolumn = 'no'
+        end
+
+        vim.o.laststatus = 0
+        vim.o.cmdheight = 0
+
+        if vim.lsp.inlay_hint then
+            vim.lsp.inlay_hint.enable(false)
+        end
+
+        pcall(function()
+            require("treesitter-context").disable()
+        end)
+
+        vim.g.miniindentscope_disable = true
+
+        pcall(function()
+            require("gitsigns").toggle_current_line_blame(false)
+        end)
+
+    else
+        clean_mode = false
+
+        vim.diagnostic.enable(true)
+
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+            vim.wo[win].number = true
+            vim.wo[win].relativenumber = true
+            vim.wo[win].signcolumn = my.signcolumn
+        end
+
+        vim.o.laststatus = my.laststatus
+        vim.o.cmdheight = 1
+
+        if vim.lsp.inlay_hint and saved.inlay_hints ~= nil then
+            vim.lsp.inlay_hint.enable(saved.inlay_hints)
+        end
+
+        pcall(function()
+            require("treesitter-context").enable()
+        end)
+
+        vim.g.miniindentscope_disable = false
+
+        pcall(function()
+            if saved.line_blame ~= nil then
+                require("gitsigns").toggle_current_line_blame(saved.line_blame)
+            end
+        end)
+    end
+end
+
+vim.keymap.set("n", "<leader>tz", toggle_clean_mode, {
+    desc = "Toggle clean mode",
+})
+

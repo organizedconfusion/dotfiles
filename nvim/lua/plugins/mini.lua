@@ -20,12 +20,12 @@ require('mini.indentscope').setup({
     },
     mappings = {
         -- Textobjects
-        object_scope = 'it',
-        object_scope_with_border = 'at',
+        object_scope = 'ir',
+        object_scope_with_border = 'ar',
 
         -- Motions (jump to respective border line; if not present - body line)
-        goto_top = '[t',
-        goto_bottom = ']t',
+        goto_top = '[r',
+        goto_bottom = ']r',
     },
     options = {
         try_as_border = false,
@@ -34,6 +34,7 @@ require('mini.indentscope').setup({
 })
 
 require('mini.trailspace').setup()
+require('mini.sessions').setup()
 
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
