@@ -98,6 +98,12 @@ require("nvim-treesitter-textobjects").setup {
 -- [[ KEYMAPPINGS ]]
 
 -- Select keymaps
+vim.keymap.set({ "x", "o" }, "ak", function()
+    require "nvim-treesitter-textobjects.select".select_textobject("@block.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ik", function()
+    require "nvim-treesitter-textobjects.select".select_textobject("@block.inner", "textobjects")
+end)
 vim.keymap.set({ "x", "o" }, "am", function()
     require "nvim-treesitter-textobjects.select".select_textobject("@function.outer", "textobjects")
 end)
@@ -189,6 +195,12 @@ vim.keymap.set({ "n", "x", "o" }, "[o", function()
 end)
 vim.keymap.set({ "n", "x", "o" }, "]o", function()
     require("nvim-treesitter-textobjects.move").goto_next_start({ "@local.scope" }, "locals")
+end)
+vim.keymap.set({ "n", "x", "o" }, "[k", function()
+    require("nvim-treesitter-textobjects.move").goto_previous_start({ "@block.outer" }, "textobjects")
+end)
+vim.keymap.set({ "n", "x", "o" }, "]k", function()
+    require("nvim-treesitter-textobjects.move").goto_next_start({ "@block.outer" }, "textobjects")
 end)
 
 vim.keymap.set("n", "[x", function()
