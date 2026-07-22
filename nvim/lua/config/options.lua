@@ -78,8 +78,7 @@ end, { nargs = 1, complete = "buffer" })
 
 vim.api.nvim_create_autocmd("InsertEnter", {
     callback = function()
-       print("clean_mode =", clean_mode)
-       if clean_mode then
+       if clean_mode or vim.bo.buftype ~= "" then
             return
         end
 
@@ -91,7 +90,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     callback = function()
         print("clean_mode =", clean_mode)
 
-        if clean_mode then
+        if clean_mode or vim.bo.buftype ~= "" then
             return
         end
 
