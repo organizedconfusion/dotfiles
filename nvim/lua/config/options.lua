@@ -88,8 +88,6 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 
 vim.api.nvim_create_autocmd("InsertLeave", {
     callback = function()
-        print("clean_mode =", clean_mode)
-
         if clean_mode or vim.bo.buftype ~= "" then
             return
         end
