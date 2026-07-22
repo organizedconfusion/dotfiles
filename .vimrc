@@ -1,23 +1,6 @@
 " General
 set nocompatible            " get rid of Vi compatibility mode. SET FIRST!
-filetype plugin indent on   " filetype detection[ON] plugin[ON] indent[ON]
-
-
-" Plugins
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin()
-
-Plug 'sainnhe/gruvbox-material'
-Plug 'machakann/vim-sandwich'
-Plug 'machakann/vim-highlightedyank'
-
-call plug#end()
-
+filetype indent on   " filetype detection[ON] plugin[ON] indent[ON]
 
 " Theme / Colour
 set t_Co=256                " will fallback to 256 color mode if no termguicolors
@@ -30,14 +13,8 @@ if (has("termguicolors"))
 endif
 
 syntax enable               " enable syntax highlighting (previously syntax on).
+colorscheme retrobox
 set background=dark         " dark mode for colorscheme
-autocmd vimenter * ++nested colorscheme gruvbox-material
-let g:gruvbox_material_background = 'medium'
-let g:gruvbox_material_foreground = 'material'
-let g:gruvbox_material_enable_bold = 1
-let g:gruvbox_material_enable_italic = 1
-let g:highlightedyank_highlight_duration = 200
-
 
 " Vim UI
 set number                  " show line numbers
@@ -55,7 +32,7 @@ set lcs+=space:·            " show spaces as · when set list is on
 set cursorline              " highlight the line the cursor is on
 set visualbell              " visual bell indicator (screen flash)
 set showmatch               " show matching parentheses
-set scrolloff=5             " always show 5 lines of context around selected line
+set scrolloff=8             " always show 5 lines of context around selected line
 set timeout timeoutlen=300  " wait 300ms between key combos
 
 " Cursor settings:
