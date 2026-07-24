@@ -24,7 +24,7 @@
 [color]
     ui = auto
 [pretty]
-    mylog = %C(yellow)%h%C(reset) %C(green)%cr%C(reset) %C(blue)%an%C(reset) %s
+    mylog = %C(yellow)%h%C(reset) %C(green)%cr%C(reset) %C(blue)%an%C(reset) %s%C(auto)%d%Creset
 [alias]
     st = status
     tree = log --branches --remotes --tags --graph --decorate-refs-exclude=HEAD --pretty=format:'%C(yellow)%h%Creset %s%C(auto)%d%Creset%n%b'
@@ -33,7 +33,7 @@
 
     # Fuzzy finder local branch switch
     zswitch = !git branch --format='%(refname:short)' \
-        | fzf --preview 'git log --oneline --graph --color=always --pretty=mylog {} | head -100' \
+        | fzf --preview 'git log --graph --color=always --pretty=mylog {} | head -100' \
               --preview-window=right:66% \
         | xargs -r git switch
 
@@ -41,16 +41,16 @@
     zcheckout = !git fetch --prune && \
         git branch -r --format='%(refname:short)' \
             | grep -v '^origin$' \
-            | fzf --preview 'git log --oneline --graph --color=always --pretty=mylog {} | head -100' \
+            | fzf --preview 'git log --graph --color=always --pretty=mylog {} | head -100' \
                   --preview-window=right:66% \
             | xargs -r git switch --track
 
     # Fuzzy finder log command with diff preview
     zlog = "!f() { \
-        git log --oneline --color=always \"$@\" | \
+        git log --color=always --pretty=mylog \"$@\" | \
         fzf -m --no-sort --layout=reverse --ansi \
             --preview='git show {1} | delta' \
-            --preview-window=right:66% | \
+            --preview-window=right:50% | \
         awk '{print $1}'; \
     }; f"
 

@@ -91,3 +91,17 @@ end, {desc = 'Use custom Diffget command on remote buffer'})
 
 map('n', 'gp', '"0p')
 map('n', 'gP', '"0P')
+
+map('n', '<leader>nq', function()
+    local ok, err = pcall(vim.cmd, 'cnewer')
+    if not ok then
+        vim.notify(err, vim.log.levels.INFO)
+    end
+end, { desc = 'Go to a newer quickfix list.' })
+
+map('n', '<leader>oq', function()
+    local ok, err = pcall(vim.cmd, 'colder')
+    if not ok then
+        vim.notify(err, vim.log.levels.INFO)
+    end
+end, { desc = 'Go to an older quickfix list.' })

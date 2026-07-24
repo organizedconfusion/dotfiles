@@ -14,7 +14,7 @@ vim.g.gruvbox_material_transparent_background = '0'
 
 require('everforest').setup({
     background = 'medium',
-    transparent_background_level = 1
+    transparent_background_level = 0
 })
 
 vim.api.nvim_create_autocmd("ColorScheme", {
