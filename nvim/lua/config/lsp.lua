@@ -9,7 +9,7 @@ vim.lsp.config("clangd", {
             "/home/sean/common/gcc/ubuntu/7.3/bin/arm-none-eabi-g++",
         "--background-index",
         "--clang-tidy",
-        "--header-insertion=iwyu",
+        "--header-insertion=never",
         "--completion-style=detailed",
         "--fallback-style=none",
         "--log=error"
