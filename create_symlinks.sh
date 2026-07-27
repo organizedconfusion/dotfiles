@@ -11,7 +11,7 @@ symlink_file() {
         exit 1
     fi
 
-    ln -sf "$SRC" "$DST"
+    ln -sfn "$SRC" "$DST"
 
     echo "Linked $SRC -> $DST"
 }
