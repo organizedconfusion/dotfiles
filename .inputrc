@@ -12,7 +12,7 @@ set visible-stats on
 
 # Adds punctuation as word delimiters
 set bind-tty-special-chars off
-Control-w: backward-kill-word 
+Control-w: backward-kill-word
 
 # Allow UTF-8 input and output, instead of showing stuff like $'\0123\0456'
 set input-meta on
