@@ -58,10 +58,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local opts = { buffer = bufnr, noremap = true, silent = true }
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'grn', vim.lsp.buf.rename, opts)
-        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
         vim.keymap.set({ 'n', 'x' }, '<leader>cf', vim.lsp.buf.format, opts)
         vim.keymap.set('n', '<leader>ch', function()
             local enabled = vim.lsp.inlay_hint.is_enabled()

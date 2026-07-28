@@ -105,3 +105,7 @@ map('n', '<leader>oq', function()
         vim.notify(err, vim.log.levels.INFO)
     end
 end, { desc = 'Go to an older quickfix list.' })
+
+vim.keymap.set("n", "<leader>vi", function()
+    vim.cmd.edit(vim.fn.stdpath("config") .. "/init.lua")
+end, { desc = "Edit init.lua" })
