@@ -1,6 +1,6 @@
 [user]
-	name = organizedconfusion
-	email = github@underclocked.com
+    name = Sean Jeffery
+    email = sean.jeffery@rimex.com
 [core]
     autocrlf = input
     editor = nvim

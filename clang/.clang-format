@@ -4,7 +4,7 @@
 # Author: Sean Jeffery
 #
 # Valid with clang-format 21
-# Information on options can be found at 
+# Information on options can be found at
 # https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 #
 # Some options may already be the default in LLVM style,
@@ -28,26 +28,16 @@ TabWidth: 4
 UseTab: Never
 
 # ---- Line length ----
-# This is up for debate, but the 100 column
-# limit produces code that is very readable,
-# especially when using multiple split windows.
-#
-# Can cause weird comments though, could consider 
-# leaving ReflowComments at Never or IndentOnly.
-# That will leave comments > 100 columns but their
-# formatting won't be messed with.
-# 
-# Could also consider a larger number, say 120
-ColumnLimit: 100
+ColumnLimit: 110
 
 # ---- Comments ----
-ReflowComments: true
+ReflowComments: false
 AlignTrailingComments:
-  Kind: Always
-  OverEmptyLines: 1
+  Kind: Never
+  OverEmptyLines: 1 # Only when Kind: Always
 
 # ---- Braces ----
-BreakBeforeBraces: Allman
+BreakBeforeBraces: Linux
 
 # ---- Single lines statement ----
 AllowShortIfStatementsOnASingleLine: WithoutElse
@@ -64,12 +54,14 @@ BreakBeforeBinaryOperators: None
 BreakBeforeTernaryOperators: true
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowAllArgumentsOnNextLine: false
-BinPackArguments: false
-BinPackParameters: OnePerLine
+PackArguments:
+  BinPack: BinPack
+PackParameters:
+  BinPack: BinPack
 DerivePointerAlignment: false
 PointerAlignment: Right
 AlignAfterOpenBracket: BlockIndent
-AlignOperands: true
+AlignOperands: false
 AlignConsecutiveBitFields:
   Enabled: true
   AcrossEmptyLines: false
@@ -79,7 +71,7 @@ AlignConsecutiveDeclarations:
   AcrossEmptyLines: false
   AcrossComments: false
 AlignConsecutiveAssignments:
-  Enabled: true
+  Enabled: false
   AcrossEmptyLines: false
   AcrossComments: false
 AlignArrayOfStructures: Left
@@ -90,7 +82,7 @@ KeepEmptyLines:
 SpaceBeforeParens: ControlStatements
 SpacesInParens: Custom
 SpacesInParensOptions:
-  InConditionalStatements: true
+  InConditionalStatements: false
   InCStyleCasts: false
   InEmptyParentheses: false
   Other: false
@@ -99,3 +91,10 @@ SpacesInParensOptions:
 SortIncludes: false
 IncludeBlocks: Preserve
 
+# ---- C++ ----
+Language: Cpp
+
+BreakTemplateDeclarations: Yes
+FixNamespaceComments: true
+AllowShortLambdasOnASingleLine: Empty
+PointerAlignment: Left

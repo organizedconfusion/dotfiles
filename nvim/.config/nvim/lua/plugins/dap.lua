@@ -31,6 +31,16 @@ dap.adapters.gdb = {
     args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
 }
 
+dap.configurations.c = {
+    {
+        type = 'gdb',
+        request = 'attach',
+        target = 'localhost:2331',
+        program = "/home/sean/repos/hwtype4_appl/products/APPL4.elf",
+        name = 'Attach Jlink'
+    },
+}
+
 dap.adapters.python = {
     type = "executable",
     command = "python",  -- uses current python (IMPORTANT: your venv)

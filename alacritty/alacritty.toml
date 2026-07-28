@@ -39,3 +39,6 @@ save_to_clipboard = true
 [scrolling]
 history = 10000
 multiplier = 3
+
+[terminal.shell]
+program = "ubuntu.exe"
