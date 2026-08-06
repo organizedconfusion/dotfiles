@@ -134,6 +134,12 @@ end)
 vim.keymap.set({ "x", "o" }, "ii", function()
     require "nvim-treesitter-textobjects.select".select_textobject("@conditional.inner", "textobjects")
 end)
+vim.keymap.set({ "x", "o" }, "av", function()
+    require "nvim-treesitter-textobjects.select".select_textobject("@call.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "iv", function()
+    require "nvim-treesitter-textobjects.select".select_textobject("@call.inner", "textobjects")
+end)
 
 
 -- Move keymaps

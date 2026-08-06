@@ -35,7 +35,8 @@ vim.pack.add {
     { src = 'https://github.com/rafamadriz/friendly-snippets' },
     { src = 'https://github.com/alexghergh/nvim-tmux-navigation' },
     { src = 'https://github.com/mfussenegger/nvim-dap' },
-    { src = 'https://github.com/igorlfs/nvim-dap-view' }
+    { src = 'https://github.com/igorlfs/nvim-dap-view' },
+    { src = 'https://github.com/hat0uma/csvview.nvim' }
 }
 
 require('config.options')

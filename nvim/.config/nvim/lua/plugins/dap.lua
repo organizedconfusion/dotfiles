@@ -58,6 +58,7 @@ dap.configurations.python = {
 
 
 vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
+vim.keymap.set('n', '<S-F5>', function() require('dap').terminate() end)
 vim.keymap.set('n', '<F8>', function() require('dap').pause() end)
 vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
 vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
