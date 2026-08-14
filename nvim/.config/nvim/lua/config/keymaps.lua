@@ -13,11 +13,7 @@ end
 -- [[ Simple Keymaps ]]
 map('n', '<leader>wf', cmd('write'), { desc = "Write current buffer." })
 
--- Replaced by better-escape
--- map('t', '<ESC>', '<C-\\><C-n>', { desc = "Leave terminal mode with <ESC>." })
--- map('t', 'jk', '<C-\\><C-n>', { desc = "Leave terminal mode with jk." })
--- map({ 'i', 'x' }, 'jk', '<ESC>', { desc = "Map jk key combo to <ESC>." })
--- map('c', 'jk', '<C-c>')
+map({ 'i' }, 'jk', '<ESC>', { desc = "Map jk key combo to <ESC>." })
 
 map('n', '<leader><leader>', cmd('noh'), { desc = "Clear search highlighting." })
 map({ 'n' }, 'Y', '^y$', { desc = "Yank line without newline." })

@@ -4,6 +4,7 @@ require('illuminate').configure({
         'dirbuf',
         'dirvish',
         'fugitive',
-        'help'
+        'help',
+        'minifiles'
     }
 })
