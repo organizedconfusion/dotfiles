@@ -18,7 +18,7 @@ map('n', '<leader>wf', cmd('write'), { desc = "Write current buffer." })
 -- map('t', 'jk', '<C-\\><C-n>', { desc = "Leave terminal mode with jk." })
 -- map({ 'i', 'x' }, 'jk', '<ESC>', { desc = "Map jk key combo to <ESC>." })
 -- map('c', 'jk', '<C-c>')
--- 
+
 map('n', '<leader><leader>', cmd('noh'), { desc = "Clear search highlighting." })
 map({ 'n' }, 'Y', '^y$', { desc = "Yank line without newline." })
 map({ 't', 'i' }, '<A-h>', '<C-\\><C-n><C-w>h', { desc = "Select window left, terminal and insert modes." })

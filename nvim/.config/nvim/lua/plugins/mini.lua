@@ -4,7 +4,6 @@
 require('mini.files').setup()
 require('mini.icons').setup()
 MiniIcons.tweak_lsp_kind() -- Enables icons in mini.completion
-require('mini.pairs').setup()
 require('mini.pick').setup({
     window = {
         config = {

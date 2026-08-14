@@ -13,7 +13,6 @@ vim.pack.add {
     { src = 'https://github.com/nvim-lualine/lualine.nvim' },
     { src = 'https://github.com/nvim-mini/mini.files' },
     { src = 'https://github.com/nvim-mini/mini.icons' },
-    { src = 'https://github.com/nvim-mini/mini.pairs' },
     { src = 'https://github.com/nvim-mini/mini.pick' },
     { src = 'https://github.com/nvim-mini/mini.surround' },
     { src = 'https://github.com/nvim-mini/mini.snippets' },
@@ -35,7 +34,8 @@ vim.pack.add {
     { src = 'https://github.com/hat0uma/csvview.nvim' },
     { src = 'https://github.com/meanderingprogrammer/render-markdown.nvim' },
     { src = 'https://github.com/RRethy/vim-illuminate' },
-    { src = 'https://github.com/max397574/better-escape.nvim' }
+    { src = 'https://github.com/max397574/better-escape.nvim' },
+    { src = 'https://github.com/windwp/nvim-autopairs'}
 }
 
 require('config.options')
@@ -52,5 +52,6 @@ require('plugins.codecompanion')
 require('plugins.render-markdown')
 require('plugins.illuminate')
 require('plugins.better-escape')
+require('plugins.nvim-autopairs')
 require('config.colorscheme')
 require('plugins.lualine')
