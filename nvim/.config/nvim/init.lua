@@ -34,7 +34,8 @@ vim.pack.add {
     { src = 'https://github.com/igorlfs/nvim-dap-view' },
     { src = 'https://github.com/hat0uma/csvview.nvim' },
     { src = 'https://github.com/meanderingprogrammer/render-markdown.nvim' },
-    { src = 'https://github.com/RRethy/vim-illuminate' }
+    { src = 'https://github.com/RRethy/vim-illuminate' },
+    { src = 'https://github.com/max397574/better-escape.nvim' }
 }
 
 require('config.options')
@@ -50,5 +51,6 @@ require('plugins.dap')
 require('plugins.codecompanion')
 require('plugins.render-markdown')
 require('plugins.illuminate')
+require('plugins.better-escape')
 require('config.colorscheme')
 require('plugins.lualine')
