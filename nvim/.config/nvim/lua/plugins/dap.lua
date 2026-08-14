@@ -67,4 +67,4 @@ vim.keymap.set('n', '<Leader>B', function() require('dap').toggle_breakpoint() e
 vim.keymap.set('n', '<Leader>dv', function() require('dap-view').toggle() end)
 vim.keymap.set('n', '<Leader>dt', function() require('dap-view').virtual_text_toggle() end)
 vim.keymap.set({ 'n', 'x' }, '<Leader>dw', function() require('dap-view').add_expr(nil, true) end)
-vim.keymap.set({ 'n', 'x' }, 'U', dap_view.hover)
+vim.keymap.set({ 'n' }, 'U', dap_view.hover)

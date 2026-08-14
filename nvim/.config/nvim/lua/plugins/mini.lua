@@ -13,34 +13,23 @@ require('mini.pick').setup({
     }
 })
 require('mini.surround').setup()
-require('mini.indentscope').setup({
-    draw = {
-        delay = 250,
-        animation = require('mini.indentscope').gen_animation.none(),
-    },
-    mappings = {
-        -- Textobjects
-        object_scope = 'ir',
-        object_scope_with_border = 'ar',
-
-        -- Motions (jump to respective border line; if not present - body line)
-        goto_top = '[r',
-        goto_bottom = ']r',
-    },
-    options = {
-        try_as_border = false,
-        indent_at_cursor = false
-    },
-})
-
 require('mini.trailspace').setup()
-require('mini.sessions').setup()
+require('mini.sessions').setup({ autoread = false, autowrite = true })
+require('mini.input').setup()
+require('mini.starter').setup()
 
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
-        vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", {
-            link = "NonText",
-        })
+        vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "NonText", })
+
+        local mini_title = vim.api.nvim_get_hl(0, { name = "MiniFilesTitle" })
+
+        vim.api.nvim_set_hl(0, 'MiniPickPrompt', { fg = mini_title.fg, bg = "NONE", bold = true })
+        vim.api.nvim_set_hl(0, 'MiniPickPromptPrefix', { link = 'MiniPickPrompt' })
+        vim.api.nvim_set_hl(0, 'MiniPickPromptCaret', { link = 'MiniPickPrompt' })
+
+        vim.api.nvim_set_hl(0, 'MiniFilesTitle', { fg = mini_title.fg, bg = "NONE" , bold = false })
+        vim.api.nvim_set_hl(0, 'MiniFilesTitleFocused', { fg = mini_title.fg, bg = "NONE", bold = true })
     end,
 })
 
@@ -94,8 +83,8 @@ MiniSnippets.start_lsp_server()
 require('mini.completion').setup({
     delay = { signature = 10000000 }, -- Effectively, disable signature
     window = {
-        info = { border = 'rounded' },
-        signature = { border = 'rounded' },
+        info = { height = 25, width = 80, border = 'rounded' },
+        signature = { height = 25, width = 80, border = 'rounded' },
     }
 })
 
@@ -119,3 +108,6 @@ vim.keymap.set('n', '<leader>E', function()
     MiniFiles.open()
 end, { desc = 'MiniFiles cwd' })
 
+vim.keymap.set('n', '<leader>s', function()
+    MiniSessions.select()
+end, { desc = 'Pick from sessions' })

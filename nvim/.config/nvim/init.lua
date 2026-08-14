@@ -6,8 +6,6 @@ vim.g.mapleader = ' '
 -- Load all plugins
 -- See lua/plugins folder for configurations
 vim.pack.add {
-    { src = 'https://github.com/ellisonleao/gruvbox.nvim' },
-    { src = 'https://github.com/sainnhe/gruvbox-material' },
     { src = 'https://github.com/neanias/everforest-nvim' },
     { src = 'https://github.com/lewis6991/gitsigns.nvim' },
     { src = 'https://github.com/mason-org/mason.nvim' },
@@ -20,35 +18,37 @@ vim.pack.add {
     { src = 'https://github.com/nvim-mini/mini.surround' },
     { src = 'https://github.com/nvim-mini/mini.snippets' },
     { src = 'https://github.com/nvim-mini/mini.completion' },
-    { src = 'https://github.com/nvim-mini/mini.indentscope' },
     { src = 'https://github.com/nvim-mini/mini.trailspace' },
     { src = 'https://github.com/nvim-mini/mini.sessions' },
+    { src = 'https://github.com/nvim-mini/mini.input' },
+    { src = 'https://github.com/nvim-mini/mini.starter' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
-    { src = 'https://github.com/vimwiki/vimwiki' },
     {
         src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
         version = 'main'
     },
-    { src = 'https://github.com/vimwiki/vimwiki' },
-    -- { src = 'https://github.com/xiyaowong/virtcolumn.nvim' },
     { src = 'https://github.com/rafamadriz/friendly-snippets' },
     { src = 'https://github.com/alexghergh/nvim-tmux-navigation' },
     { src = 'https://github.com/mfussenegger/nvim-dap' },
     { src = 'https://github.com/igorlfs/nvim-dap-view' },
-    { src = 'https://github.com/hat0uma/csvview.nvim' }
+    { src = 'https://github.com/hat0uma/csvview.nvim' },
+    { src = 'https://github.com/meanderingprogrammer/render-markdown.nvim' },
+    { src = 'https://github.com/RRethy/vim-illuminate' }
 }
 
 require('config.options')
 require('config.keymaps')
 require('config.lsp')
 require('plugins.gitsigns')
-require('plugins.vimwiki')
 require('plugins.mini')
 require('plugins.mason')
 require('plugins.treesitter')
-require('plugins.termdebug')
+-- require('plugins.termdebug')
 require('plugins.nvim-tmux-navigation')
 require('plugins.dap')
+require('plugins.codecompanion')
+require('plugins.render-markdown')
+require('plugins.illuminate')
 require('config.colorscheme')
 require('plugins.lualine')
