@@ -1,5 +1,5 @@
 require('better_escape').setup({
-    timeout = 100,
+    timeout = 150,
     default_mappings = false,
     mappings = {
         v = {

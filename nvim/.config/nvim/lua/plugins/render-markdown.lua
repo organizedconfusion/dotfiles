@@ -1,3 +1,4 @@
 require('render-markdown').setup({
-    ft = { "markdown", "codecompanion" }
+    ft = { "markdown", "codecompanion" },
+    completions = { lsp = { enabled = true } },
 })
