@@ -11,9 +11,8 @@ require('everforest').setup({
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
         if vim.g.colors_name == "everforest" then
-            vim.api.nvim_set_hl(0, "Visual", {
-                bg = "#4b545a",
-            })
+            vim.api.nvim_set_hl(0, "Visual", { bg = "#4b545a", })
+            vim.api.nvim_set_hl(0, 'DiffText', { bg = '#49616a' })
         end
 
         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
@@ -26,10 +25,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, 'DiagnosticSignError', { link = 'DiagnosticError' })
         vim.api.nvim_set_hl(0, 'DiagnosticSignInfo', { link = 'DiagnosticInfo' })
         vim.api.nvim_set_hl(0, 'DiagnosticSignHint', { link = 'DiagnosticHint' })
-
-        vim.api.nvim_set_hl(0, 'debugPC', { link = 'DiffAdd' })
-
-       vim.api.nvim_set_hl(0, 'DiffText', { bg = '#49616a' })
     end,
 })
 
