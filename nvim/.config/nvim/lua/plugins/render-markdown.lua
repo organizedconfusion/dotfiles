@@ -1,4 +1,4 @@
 require('render-markdown').setup({
-    ft = { "markdown", "codecompanion" },
+    file_types = { "markdown", "codecompanion" },
     completions = { lsp = { enabled = true } },
 })
