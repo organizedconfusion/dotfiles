@@ -1,10 +1,9 @@
 -- [[ Neovim Options ]]
 
-local clean_mode = false
+local clean_mode = require('config.clean_mode')
 
 local my = {
     signcolumn = 'yes:1',
-    laststatus = 2
 }
 
 -- UI
@@ -21,14 +20,14 @@ vim.opt.visualbell = true
 vim.opt.showmatch = true
 vim.opt.signcolumn = my.signcolumn
 vim.opt.numberwidth = 4
+vim.opt.updatetime = 250
 vim.opt.winborder = 'rounded'
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
 -- vim.opt.colorcolumn = '110'
 vim.opt.mouse = 'a'
-vim.opt.mousemoveevent = true
 vim.opt.guicursor='n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor'
-vim.opt.laststatus = my.laststatus
+vim.opt.laststatus = 2
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
@@ -60,8 +59,11 @@ local function with_linematch_disabled(fn)
   local old = vim.o.diffopt
   -- remove linematch completely
   vim.o.diffopt = old:gsub(",?linematch:%d+", ""):gsub(",?linematch", "")
-  pcall(fn)
+  local ok, err = pcall(fn)
   vim.o.diffopt = old
+  if not ok then
+    vim.notify(tostring(err), vim.log.levels.ERROR)
+  end
 end
 
 vim.api.nvim_create_user_command("Diffget", function(opts)
@@ -78,7 +80,7 @@ end, { nargs = 1, complete = "buffer" })
 
 vim.api.nvim_create_autocmd("InsertEnter", {
     callback = function()
-       if clean_mode or vim.bo.buftype ~= "" then
+       if clean_mode.is_active() or vim.bo.buftype ~= "" then
             return
         end
 
@@ -88,7 +90,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 
 vim.api.nvim_create_autocmd("InsertLeave", {
     callback = function()
-        if clean_mode or vim.bo.buftype ~= "" then
+        if clean_mode.is_active() or vim.bo.buftype ~= "" then
             return
         end
 
@@ -114,83 +116,21 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Clean / zen mode
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        if vim.wo.diff then
+            vim.opt.number = true
+            vim.opt.relativenumber = false
+            vim.opt.signcolumn = 'no'
 
-local saved = {
-    inlay_hints = nil,
-    line_blame = nil,
-}
-
-local function toggle_clean_mode()
-    if not clean_mode then
-
-        -- save current states
-        if vim.lsp.inlay_hint and vim.lsp.inlay_hint.is_enabled then
-            saved.inlay_hints = vim.lsp.inlay_hint.is_enabled()
+            pcall(function()
+                require("treesitter-context").disable()
+            end)
         end
-
-        saved.line_blame = vim.b.gitsigns_current_line_blame
-
-        clean_mode = true
-
-        vim.diagnostic.enable(false)
-
-        for _, win in ipairs(vim.api.nvim_list_wins()) do
-            vim.wo[win].number = false
-            vim.wo[win].relativenumber = false
-            vim.wo[win].signcolumn = 'no'
-        end
-
-        vim.o.laststatus = 0
-        vim.o.cmdheight = 0
-
-        if vim.lsp.inlay_hint then
-            vim.lsp.inlay_hint.enable(false)
-        end
-
-        pcall(function()
-            require("treesitter-context").disable()
-        end)
-
-        vim.g.miniindentscope_disable = true
-
-        pcall(function()
-            require("gitsigns").toggle_current_line_blame(false)
-        end)
-
-    else
-        clean_mode = false
-
-        vim.diagnostic.enable(true)
-
-        for _, win in ipairs(vim.api.nvim_list_wins()) do
-            vim.wo[win].number = true
-            vim.wo[win].relativenumber = true
-            vim.wo[win].signcolumn = my.signcolumn
-        end
-
-        vim.o.laststatus = my.laststatus
-        vim.o.cmdheight = 1
-
-        if vim.lsp.inlay_hint and saved.inlay_hints ~= nil then
-            vim.lsp.inlay_hint.enable(saved.inlay_hints)
-        end
-
-        pcall(function()
-            require("treesitter-context").enable()
-        end)
-
-        vim.g.miniindentscope_disable = false
-
-        pcall(function()
-            if saved.line_blame ~= nil then
-                require("gitsigns").toggle_current_line_blame(saved.line_blame)
-            end
-        end)
-    end
-end
-
-vim.keymap.set("n", "<leader>tz", toggle_clean_mode, {
-    desc = "Toggle clean mode",
+    end,
 })
 
+-- Keep terminals out of the buffer list so deleting a buffer never falls back to them
+vim.api.nvim_create_autocmd("TermOpen", {
+    callback = function() vim.bo.buflisted = false end,
+})

@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, 'MiniPickPromptPrefix', { link = 'MiniPickPrompt' })
         vim.api.nvim_set_hl(0, 'MiniPickPromptCaret', { link = 'MiniPickPrompt' })
 
-        vim.api.nvim_set_hl(0, 'MiniFilesTitle', { fg = mini_title.fg, bg = "NONE" , bold = false })
+        vim.api.nvim_set_hl(0, 'MiniFilesTitle', { fg = mini_title.fg, bg = "NONE", bold = false })
         vim.api.nvim_set_hl(0, 'MiniFilesTitleFocused', { fg = mini_title.fg, bg = "NONE", bold = true })
     end,
 })
@@ -89,24 +89,17 @@ require('mini.completion').setup({
 
 -- Keymaps
 
-vim.keymap.set('n', '<leader>f', MiniPick.builtin.files)
-vim.keymap.set('n', '<leader>b', MiniPick.builtin.buffers)
-vim.keymap.set('n', '<leader>hh', MiniPick.builtin.help)
-vim.keymap.set('n', '<leader>g', MiniPick.builtin.grep_live)
-
-vim.keymap.set('n', '<leader>G', function()
-    local dir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':h')
-    MiniPick.builtin.grep_live({}, { source = { cwd = dir } })
-end, { desc = 'Live grep current file directory' })
-
-vim.keymap.set('n', '<leader>e', function()
-    MiniFiles.open(vim.api.nvim_buf_get_name(0))
-end, { desc = 'MiniFiles current file' })
-
-vim.keymap.set('n', '<leader>E', function()
-    MiniFiles.open()
-end, { desc = 'MiniFiles cwd' })
-
-vim.keymap.set('n', '<leader>s', function()
+vim.keymap.set('n', '<leader>pf', MiniPick.builtin.files, { desc = 'Pick from files' })
+vim.keymap.set('n', '<leader>pb', MiniPick.builtin.buffers, { desc = 'Pick from buffers' })
+vim.keymap.set('n', '<leader>ph', MiniPick.builtin.help, { desc = 'Pick from help' })
+vim.keymap.set('n', '<leader>pg', MiniPick.builtin.grep_live, { desc = 'Pick from grep_live' })
+vim.keymap.set('n', '<leader>ps', function()
     MiniSessions.select()
 end, { desc = 'Pick from sessions' })
+
+vim.keymap.set('n', '<leader>e', function()
+    local name = vim.api.nvim_buf_get_name(0)
+    MiniFiles.open(vim.uv.fs_stat(name) and name or nil)
+end, { desc = 'MiniFiles current file' })
+
+vim.keymap.set('n', '<leader>E', MiniFiles.open, { desc = 'MiniFiles cwd' })

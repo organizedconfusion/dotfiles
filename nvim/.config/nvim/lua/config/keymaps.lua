@@ -13,10 +13,14 @@ end
 -- [[ Simple Keymaps ]]
 map('n', '<leader>wf', cmd('write'), { desc = "Write current buffer." })
 
-map({ 'i' }, 'jk', '<ESC>', { desc = "Map jk key combo to <ESC>." })
+map({ 'i','x' }, 'jk', '<ESC>', { desc = "Map jk key combo to <ESC>." })
 
 map('n', '<leader><leader>', cmd('noh'), { desc = "Clear search highlighting." })
-map({ 'n' }, 'Y', '^y$', { desc = "Yank line without newline." })
+map('n', 'Y', function()
+    local pos = vim.api.nvim_win_get_cursor(0)
+    vim.cmd('normal! ^y$')
+    vim.api.nvim_win_set_cursor(0, pos)
+end, { desc = "Yank line without newline." })
 map({ 't', 'i' }, '<A-h>', '<C-\\><C-n><C-w>h', { desc = "Select window left, terminal and insert modes." })
 map({ 't', 'i' }, '<A-j>', '<C-\\><C-n><C-w>j', { desc = "Select window down, terminal and insert modes." })
 map({ 't', 'i' }, '<A-k>', '<C-\\><C-n><C-w>k', { desc = "Select window up, terminal and insert modes." })
@@ -57,11 +61,6 @@ end, { desc = "Jump to the next diagnostic in the buffer and open the float." })
 map('n', '[d', function()
     vim.diagnostic.jump({ count = -1, wrap = true })
 end, { desc = "Jump to the previous diagnostic in the buffer and open the float." })
-
-map('n', '<leader>t', function()
-    local today = vim.fn.strftime("%Y-%m-%d")
-    vim.api.nvim_put({ today }, "c", true, true)
-end, { desc = "Put the current date string as YYYY-MM-DD." })
 
 vim.keymap.set('n', '<leader>td', function()
     local buf = vim.api.nvim_get_current_buf()
@@ -109,3 +108,5 @@ end, { desc = 'Go to an older quickfix list.' })
 vim.keymap.set("n", "<leader>vi", function()
     vim.cmd.edit(vim.fn.stdpath("config") .. "/init.lua")
 end, { desc = "Edit init.lua" })
+
+vim.keymap.set('v', '<Leader>=', 'c<C-r>=eval(trim(@"))<CR>')

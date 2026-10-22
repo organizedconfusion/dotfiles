@@ -25,9 +25,11 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, 'DiagnosticSignError', { link = 'DiagnosticError' })
         vim.api.nvim_set_hl(0, 'DiagnosticSignInfo', { link = 'DiagnosticInfo' })
         vim.api.nvim_set_hl(0, 'DiagnosticSignHint', { link = 'DiagnosticHint' })
+
+        for _, name in ipairs({ 'LspReferenceText', 'LspReferenceRead', 'LspReferenceWrite' }) do
+            vim.api.nvim_set_hl(0, name, { link = 'Visual' })
+        end
     end,
 })
 
 vim.cmd('colorscheme everforest')
-
-

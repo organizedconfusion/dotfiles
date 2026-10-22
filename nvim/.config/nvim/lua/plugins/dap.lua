@@ -1,5 +1,4 @@
 local dap = require("dap")
-local dap_view = require("dap-view")
 
 require("dap-view").setup({
     winbar = {
@@ -63,8 +62,7 @@ vim.keymap.set('n', '<F8>', function() require('dap').pause() end)
 vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
 vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
 vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
-vim.keymap.set('n', '<Leader>B', function() require('dap').toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>db', function() require('dap').toggle_breakpoint() end)
 vim.keymap.set('n', '<Leader>dv', function() require('dap-view').toggle() end)
 vim.keymap.set('n', '<Leader>dt', function() require('dap-view').virtual_text_toggle() end)
 vim.keymap.set({ 'n', 'x' }, '<Leader>dw', function() require('dap-view').add_expr(nil, true) end)
-vim.keymap.set({ 'n' }, 'U', dap_view.hover)

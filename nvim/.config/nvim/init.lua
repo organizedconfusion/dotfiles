@@ -32,13 +32,19 @@ vim.pack.add {
     { src = 'https://github.com/mfussenegger/nvim-dap' },
     { src = 'https://github.com/igorlfs/nvim-dap-view' },
     { src = 'https://github.com/hat0uma/csvview.nvim' },
+    { src = 'https://github.com/github/copilot.vim' },
+    { src = 'https://github.com/nvim-lua/plenary.nvim' },
+    {
+        src = 'https://github.com/olimorris/codecompanion.nvim',
+        version = vim.version.range("^19.0.0")
+    },
     { src = 'https://github.com/meanderingprogrammer/render-markdown.nvim' },
-    { src = 'https://github.com/RRethy/vim-illuminate' },
-    { src = 'https://github.com/max397574/better-escape.nvim' },
-    { src = 'https://github.com/windwp/nvim-autopairs'}
+    { src = 'https://github.com/windwp/nvim-autopairs'},
+    { src = 'https://github.com/folke/snacks.nvim'}
 }
 
 require('config.options')
+require('config.clean_mode')
 require('config.keymaps')
 require('config.lsp')
 require('plugins.gitsigns')
@@ -50,9 +56,8 @@ require('plugins.nvim-tmux-navigation')
 require('plugins.dap')
 require('plugins.codecompanion')
 require('plugins.render-markdown')
-require('plugins.illuminate')
 require('plugins.csvview')
-require('plugins.better-escape')
 require('plugins.nvim-autopairs')
+require('plugins.snacks')
 require('config.colorscheme')
 require('plugins.lualine')
