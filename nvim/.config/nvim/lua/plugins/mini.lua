@@ -93,6 +93,16 @@ vim.keymap.set('n', '<leader>pf', MiniPick.builtin.files, { desc = 'Pick from fi
 vim.keymap.set('n', '<leader>pb', MiniPick.builtin.buffers, { desc = 'Pick from buffers' })
 vim.keymap.set('n', '<leader>ph', MiniPick.builtin.help, { desc = 'Pick from help' })
 vim.keymap.set('n', '<leader>pg', MiniPick.builtin.grep_live, { desc = 'Pick from grep_live' })
+vim.keymap.set('i', '<C-x><C-f>', function()
+    MiniPick.builtin.files(nil, {
+        source = {
+            choose = function(item)
+                if item == nil then return end
+                vim.schedule(function() vim.api.nvim_put({ item }, 'c', true, true) end)
+            end,
+        },
+    })
+end, { desc = 'Pick a file path and insert it' })
 vim.keymap.set('n', '<leader>ps', function()
     MiniSessions.select()
 end, { desc = 'Pick from sessions' })
