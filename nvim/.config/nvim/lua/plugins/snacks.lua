@@ -4,7 +4,6 @@
 require("snacks").setup({
     bigfile = { enabled = true },
     quickfile = { enabled = true },
-    notifier = { enabled = true },
     bufdelete = { enabled = true },
     scroll = { enabled = false },
 })
@@ -12,5 +11,5 @@ require("snacks").setup({
 local map = vim.keymap.set
 
 map('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete buffer' })
-map('n', '<leader>nh', function() Snacks.notifier.show_history() end, { desc = 'Notification history' })
-map('n', '<leader>nd', function() Snacks.notifier.hide() end, { desc = 'Dismiss notifications' })
+map('n', '<leader>nh', function() MiniNotify.show_history() end, { desc = 'Notification history' })
+map('n', '<leader>nd', function() MiniNotify.clear() end, { desc = 'Dismiss notifications' })

@@ -134,3 +134,28 @@ vim.api.nvim_create_autocmd("VimEnter", {
 vim.api.nvim_create_autocmd("TermOpen", {
     callback = function() vim.bo.buflisted = false end,
 })
+
+-- Enter insert mode when opening or returning to a terminal window
+vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
+    pattern = "term://*",
+    callback = function() vim.cmd("startinsert") end,
+})
+
+vim.opt.grepprg = 'rg --vimgrep --smart-case'
+vim.opt.grepformat = '%f:%l:%c:%m'
+
+-- open the quickfix list after :grep
+vim.api.nvim_create_autocmd('QuickFixCmdPost', {
+    pattern = '[^l]*',
+    command = 'cwindow',
+})
+
+vim.lsp.config("lua_ls", {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' },
+            },
+        },
+    },
+})

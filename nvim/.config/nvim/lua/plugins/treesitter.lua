@@ -81,9 +81,12 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
         vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', {
             fg = nontext.fg,
+            bg = 'none',
         })
 
+        local normal = vim.api.nvim_get_hl(0, { name = 'Normal', link = false })
         vim.api.nvim_set_hl(0, 'TreesitterContext', {
+            fg = normal.fg,
             bg = 'none',
         })
     end,

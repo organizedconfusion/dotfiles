@@ -82,6 +82,8 @@ local function enter()
         require('treesitter-context').disable()
     end)
 
+    vim.lsp.buf.clear_references()
+
     vim.g.miniindentscope_disable = true
 
     vim.g.minitrailspace_disable = true

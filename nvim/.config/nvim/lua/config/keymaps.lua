@@ -110,3 +110,16 @@ vim.keymap.set("n", "<leader>vi", function()
 end, { desc = "Edit init.lua" })
 
 vim.keymap.set('v', '<Leader>=', 'c<C-r>=eval(trim(@"))<CR>')
+
+vim.keymap.set('n', '<leader>yl', function()
+    local ref = vim.fn.expand('%:.') .. ':' .. vim.fn.line('.')
+    vim.fn.setreg('+', ref)
+end, { desc = 'Copy file:line' })
+
+vim.keymap.set('x', '<leader>yl', function()
+    local a, b = vim.fn.line('v'), vim.fn.line('.')
+    if a > b then a, b = b, a end
+    local ref = vim.fn.expand('%:.') .. ':' .. a .. (a ~= b and ('-' .. b) or '')
+    vim.fn.setreg('+', ref)
+    vim.api.nvim_feedkeys(vim.keycode('<Esc>'), 'n', false)
+end, { desc = 'Copy file:line range' })

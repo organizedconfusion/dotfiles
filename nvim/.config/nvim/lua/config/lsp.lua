@@ -74,7 +74,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.api.nvim_create_autocmd('CursorHold', {
                 group = group,
                 buffer = bufnr,
-                callback = vim.lsp.buf.document_highlight,
+                callback = function()
+                    if not require('config.clean_mode').is_active() then
+                        vim.lsp.buf.document_highlight()
+                    end
+                end,
             })
             vim.api.nvim_create_autocmd({ 'CursorMoved', 'ModeChanged' }, {
                 group = group,

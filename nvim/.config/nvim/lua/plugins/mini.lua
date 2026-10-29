@@ -9,26 +9,39 @@ require('mini.pick').setup({
         config = {
             width = 120,
         }
-    }
+    },
+    mappings = {
+        choose_marked = '<C-q>',
+    },
 })
 require('mini.surround').setup()
 require('mini.trailspace').setup()
 require('mini.sessions').setup({ autoread = false, autowrite = true })
-require('mini.input').setup()
+require('mini.input').setup({})
 require('mini.starter').setup()
+require('mini.notify').setup({
+    window = {
+        config = {
+            width = 40
+        },
+        winblend = 0,
+    },
+})
 
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
-        vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "NonText", })
+        -- vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "NonText", })
 
         local mini_title = vim.api.nvim_get_hl(0, { name = "MiniFilesTitle" })
 
-        vim.api.nvim_set_hl(0, 'MiniPickPrompt', { fg = mini_title.fg, bg = "NONE", bold = true })
-        vim.api.nvim_set_hl(0, 'MiniPickPromptPrefix', { link = 'MiniPickPrompt' })
-        vim.api.nvim_set_hl(0, 'MiniPickPromptCaret', { link = 'MiniPickPrompt' })
+        -- vim.api.nvim_set_hl(0, 'MiniPickPrompt', { fg = mini_title.fg, bg = "NONE", bold = true })
+        -- vim.api.nvim_set_hl(0, 'MiniPickPromptPrefix', { link = 'MiniPickPrompt' })
+        -- vim.api.nvim_set_hl(0, 'MiniPickPromptCaret', { link = 'MiniPickPrompt' })
 
-        vim.api.nvim_set_hl(0, 'MiniFilesTitle', { fg = mini_title.fg, bg = "NONE", bold = false })
-        vim.api.nvim_set_hl(0, 'MiniFilesTitleFocused', { fg = mini_title.fg, bg = "NONE", bold = true })
+        if vim.g.colors_name == "everforest" then
+            vim.api.nvim_set_hl(0, 'MiniFilesTitle', { fg = mini_title.fg, bg = 'none', bold = false })
+            vim.api.nvim_set_hl(0, 'MiniFilesTitleFocused', { fg = mini_title.fg, bg = 'none', bold = true })
+        end
     end,
 })
 
@@ -93,6 +106,7 @@ vim.keymap.set('n', '<leader>pf', MiniPick.builtin.files, { desc = 'Pick from fi
 vim.keymap.set('n', '<leader>pb', MiniPick.builtin.buffers, { desc = 'Pick from buffers' })
 vim.keymap.set('n', '<leader>ph', MiniPick.builtin.help, { desc = 'Pick from help' })
 vim.keymap.set('n', '<leader>pg', MiniPick.builtin.grep_live, { desc = 'Pick from grep_live' })
+vim.keymap.set('n', '<leader>pG', MiniPick.builtin.grep, { desc = 'Pick from grep' })
 vim.keymap.set('i', '<C-x><C-f>', function()
     MiniPick.builtin.files(nil, {
         source = {
@@ -103,6 +117,7 @@ vim.keymap.set('i', '<C-x><C-f>', function()
         },
     })
 end, { desc = 'Pick a file path and insert it' })
+
 vim.keymap.set('n', '<leader>ps', function()
     MiniSessions.select()
 end, { desc = 'Pick from sessions' })
