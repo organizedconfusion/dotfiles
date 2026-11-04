@@ -11,5 +11,3 @@ require("snacks").setup({
 local map = vim.keymap.set
 
 map('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete buffer' })
-map('n', '<leader>nh', function() MiniNotify.show_history() end, { desc = 'Notification history' })
-map('n', '<leader>nd', function() MiniNotify.clear() end, { desc = 'Dismiss notifications' })

@@ -102,8 +102,20 @@ require('mini.completion').setup({
 
 -- Keymaps
 
+
+
 vim.keymap.set('n', '<leader>pf', MiniPick.builtin.files, { desc = 'Pick from files' })
-vim.keymap.set('n', '<leader>pb', MiniPick.builtin.buffers, { desc = 'Pick from buffers' })
+
+vim.keymap.set('n', '<leader>pb', function()
+    local wipeout_cur = function()
+        vim.api.nvim_buf_delete(MiniPick.get_picker_matches().current.bufnr, {})
+    end
+
+    local buffer_mappings = { wipeout = { char = '<C-d>', func = wipeout_cur } }
+
+    MiniPick.builtin.buffers(nil, { mappings = buffer_mappings })
+end, { desc = 'Pick from buffers' })
+
 vim.keymap.set('n', '<leader>ph', MiniPick.builtin.help, { desc = 'Pick from help' })
 vim.keymap.set('n', '<leader>pg', MiniPick.builtin.grep_live, { desc = 'Pick from grep_live' })
 vim.keymap.set('n', '<leader>pG', MiniPick.builtin.grep, { desc = 'Pick from grep' })
@@ -128,3 +140,6 @@ vim.keymap.set('n', '<leader>e', function()
 end, { desc = 'MiniFiles current file' })
 
 vim.keymap.set('n', '<leader>E', MiniFiles.open, { desc = 'MiniFiles cwd' })
+
+vim.keymap.set('n', '<leader>nh', function() MiniNotify.show_history() end, { desc = 'Notification history' })
+vim.keymap.set('n', '<leader>nd', function() MiniNotify.clear() end, { desc = 'Dismiss notifications' })
