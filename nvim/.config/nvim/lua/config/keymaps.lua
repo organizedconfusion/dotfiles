@@ -66,23 +66,11 @@ map('n', '[d', function()
     vim.diagnostic.jump({ count = -1, wrap = true })
 end, { desc = "Jump to the previous diagnostic in the buffer and open the float." })
 
-vim.keymap.set('n', '<leader>td', function()
-    local buf = vim.api.nvim_get_current_buf()
-
-    if vim.diagnostic.is_enabled({ bufnr = buf }) then
-        vim.diagnostic.enable(false, { bufnr = buf })
-    else
-        vim.diagnostic.enable(true, { bufnr = buf })
-    end
-end, { desc = 'Toggle diagnostics (buffer)' })
-
 map('n', '<leader>m', function()
     vim.cmd('write')
     vim.cmd('make')
     vim.cmd('cwindow')
 end, { desc = "Call make and open the quickfix window if there are errors." })
-
-map({'n', 'x'}, '<leader>tw', [[:s/\s\+$//e<CR>:noh<CR>]], { desc = 'Trim trailing whitespace' })
 
 map('n', '<leader>dl', function()
     vim.cmd('Diffget LOCAL')

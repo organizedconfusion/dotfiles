@@ -70,10 +70,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
         vim.keymap.set({ 'n', 'x' }, '<leader>cf', vim.lsp.buf.format, opts)
-        vim.keymap.set('n', '<leader>ch', function()
-            local enabled = vim.lsp.inlay_hint.is_enabled()
-            vim.lsp.inlay_hint.enable(not enabled)
-        end, opts)
 
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         if client and client.name == 'ruff' then

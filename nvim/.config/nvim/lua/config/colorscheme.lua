@@ -12,8 +12,9 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     group = vim.api.nvim_create_augroup('config_colorscheme', { clear = true }),
     callback = function()
         if vim.g.colors_name == "everforest" then
-        --     vim.api.nvim_set_hl(0, "Visual", { bg = "#4b545a", })
+            vim.api.nvim_set_hl(0, "Visual", { bg = "#5a4452", })
             vim.api.nvim_set_hl(0, 'DiffText', { bg = '#4f6a6f' })
+            vim.api.nvim_set_hl(0, 'debugPC', { link = 'DiffAdd' })
 
         -- vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
 

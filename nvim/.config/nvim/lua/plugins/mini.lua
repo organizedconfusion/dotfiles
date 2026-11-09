@@ -22,9 +22,9 @@ require('mini.starter').setup()
 require('mini.notify').setup({
     window = {
         config = {
-            width = 40
+            -- width = 40
         },
-        winblend = 0,
+        -- winblend = 0,
     },
 })
 

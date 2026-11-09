@@ -150,6 +150,4 @@ function M.toggle()
     end
 end
 
-vim.keymap.set('n', '<leader>tz', M.toggle, { desc = 'Toggle clean mode' })
-
 return M

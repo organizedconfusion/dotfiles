@@ -210,11 +210,18 @@ vim.api.nvim_create_autocmd("TermOpen", {
     callback = function() vim.bo.buflisted = false end,
 })
 
--- Enter insert mode when opening or returning to a terminal window
+-- Enter insert mode when opening or returning to a terminal window.
+-- nvim-dap renames its terminals to "[dap-terminal] ...", and creates them mid-launch,
+-- so those only get insert mode once the session is initialized.
 vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
     group = augroup,
-    pattern = "term://*",
-    callback = function() vim.cmd("startinsert") end,
+    pattern = { "term://*", "\\[dap-terminal\\]*" },
+    callback = function()
+        local dap = package.loaded['dap']
+        local session = dap and dap.session()
+        if session and not session.initialized then return end
+        vim.cmd("startinsert")
+    end,
 })
 
 vim.opt.grepprg = 'rg --vimgrep --smart-case'

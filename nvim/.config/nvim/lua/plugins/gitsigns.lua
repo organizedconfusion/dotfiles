@@ -62,7 +62,6 @@ require("gitsigns").setup({
         map('n', '<leader>hp', gitsigns.preview_hunk)
         map('n', '<leader>hd', gitsigns.diffthis)
         map('n', '<leader>hb', gitsigns.blame)
-        map('n', '<leader>hl', gitsigns.toggle_current_line_blame)
 
         vim.keymap.set('n', '<leader>hq', function()
             for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
