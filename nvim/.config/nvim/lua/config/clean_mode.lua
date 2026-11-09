@@ -1,10 +1,10 @@
 -- Clean / zen mode: hides UI chrome globally and restores the exact prior state on exit.
 
-local M = {}
+local loaded = package.loaded['config.clean_mode']
+local M = type(loaded) == 'table' and loaded or {}
 
-local active = false
-
-local saved = {
+M._state = M._state or {
+    active = false,
     inlay_hints = nil,
     line_blame = nil,
     context = nil,
@@ -13,6 +13,8 @@ local saved = {
     cmdheight = nil,
     wins = {},
 }
+
+local saved = M._state
 
 local clean_win_opts = { number = false, relativenumber = false, signcolumn = 'no' }
 
@@ -36,8 +38,9 @@ local function clean_window(win)
 end
 
 vim.api.nvim_create_autocmd({ 'WinNew', 'BufWinEnter' }, {
+    group = vim.api.nvim_create_augroup('config_clean_mode', { clear = true }),
     callback = function()
-        if active then
+        if saved.active then
             vim.schedule(function()
                 clean_window(vim.api.nvim_get_current_win())
             end)
@@ -46,7 +49,7 @@ vim.api.nvim_create_autocmd({ 'WinNew', 'BufWinEnter' }, {
 })
 
 function M.is_active()
-    return active
+    return saved.active
 end
 
 local function enter()
@@ -62,7 +65,7 @@ local function enter()
     saved.laststatus = vim.o.laststatus
     saved.cmdheight = vim.o.cmdheight
 
-    active = true
+    saved.active = true
 
     vim.diagnostic.enable(false)
 
@@ -99,7 +102,7 @@ local function enter()
 end
 
 local function exit()
-    active = false
+    saved.active = false
 
     vim.diagnostic.enable(saved.diagnostics ~= false)
 
@@ -140,7 +143,7 @@ local function exit()
 end
 
 function M.toggle()
-    if active then
+    if saved.active then
         exit()
     else
         enter()

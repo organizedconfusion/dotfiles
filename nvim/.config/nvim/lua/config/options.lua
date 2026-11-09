@@ -1,6 +1,7 @@
 -- [[ Neovim Options ]]
 
 local clean_mode = require('config.clean_mode')
+local augroup = vim.api.nvim_create_augroup('config_options', { clear = true })
 
 local my = {
     signcolumn = 'yes:1',
@@ -79,8 +80,9 @@ vim.api.nvim_create_user_command("Diffput", function(opts)
 end, { nargs = 1, complete = "buffer" })
 
 vim.api.nvim_create_autocmd("InsertEnter", {
+    group = augroup,
     callback = function()
-       if clean_mode.is_active() or vim.bo.buftype ~= "" then
+        if clean_mode.is_active() or vim.bo.buftype ~= "" or vim.wo.diff then
             return
         end
 
@@ -89,8 +91,9 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 })
 
 vim.api.nvim_create_autocmd("InsertLeave", {
+    group = augroup,
     callback = function()
-        if clean_mode.is_active() or vim.bo.buftype ~= "" then
+        if clean_mode.is_active() or vim.bo.buftype ~= "" or vim.wo.diff then
             return
         end
 
@@ -102,6 +105,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 -- increase startup-time. Remove this option if you want your OS clipboard to remain independent.
 -- See `:help 'clipboard'`
 vim.api.nvim_create_autocmd('UIEnter', {
+  group = augroup,
   callback = function()
     vim.opt.clipboard = 'unnamedplus'
   end,
@@ -110,33 +114,105 @@ vim.api.nvim_create_autocmd('UIEnter', {
 -- Highlight when yanking (copying) text.
 -- Try it with `yap` in normal mode. See `:h vim.hl.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
+  group = augroup,
   desc = 'Highlight when yanking (copying) text',
   callback = function()
     vim.hl.hl_op()
   end,
 })
 
-vim.api.nvim_create_autocmd("VimEnter", {
-    callback = function()
-        if vim.wo.diff then
-            vim.opt.number = true
-            vim.opt.relativenumber = false
-            vim.opt.signcolumn = 'no'
-
-            pcall(function()
-                require("treesitter-context").disable()
-            end)
+local function any_diff_saved()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if vim.w[win].diff_saved then
+            return true
         end
+    end
+    return false
+end
+
+local function diff_enter(win)
+    if vim.w[win].diff_saved then
+        return
+    end
+    local buf = vim.api.nvim_win_get_buf(win)
+    if not any_diff_saved() then
+        local ok, ctx = pcall(require, 'treesitter-context')
+        vim.g.diff_context_enabled = ok and ctx.enabled() or false
+        if ok then
+            ctx.disable()
+        end
+    end
+    vim.w[win].diff_saved = {
+        signcolumn = vim.wo[win].signcolumn,
+        number = vim.wo[win].number,
+        relativenumber = vim.wo[win].relativenumber,
+        bufnr = buf,
+        diagnostics = vim.diagnostic.is_enabled({ bufnr = buf }),
+    }
+    vim.wo[win].signcolumn = 'no'
+    vim.wo[win].number = true
+    vim.wo[win].relativenumber = false
+    vim.diagnostic.enable(false, { bufnr = buf })
+end
+
+local function diff_leave(win)
+    local saved = vim.w[win].diff_saved
+    if not saved then
+        return
+    end
+    vim.w[win].diff_saved = nil
+    vim.wo[win].signcolumn = saved.signcolumn
+    vim.wo[win].number = saved.number
+    vim.wo[win].relativenumber = saved.relativenumber
+    if vim.api.nvim_buf_is_valid(saved.bufnr) then
+        vim.diagnostic.enable(saved.diagnostics, { bufnr = saved.bufnr })
+    end
+    if not any_diff_saved() and vim.g.diff_context_enabled then
+        pcall(function()
+            require('treesitter-context').enable()
+        end)
+    end
+end
+
+local function sync_diff_windows()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if vim.api.nvim_win_get_config(win).relative == '' then
+            if vim.wo[win].diff then
+                diff_enter(win)
+            else
+                diff_leave(win)
+            end
+        end
+    end
+end
+
+vim.api.nvim_create_autocmd("OptionSet", {
+    group = augroup,
+    pattern = "diff",
+    callback = sync_diff_windows,
+})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    group = augroup,
+    callback = sync_diff_windows,
+})
+
+vim.api.nvim_create_autocmd("WinClosed", {
+    group = augroup,
+    callback = function()
+        vim.schedule(sync_diff_windows)
     end,
 })
 
 -- Keep terminals out of the buffer list so deleting a buffer never falls back to them
 vim.api.nvim_create_autocmd("TermOpen", {
+    group = augroup,
     callback = function() vim.bo.buflisted = false end,
 })
 
 -- Enter insert mode when opening or returning to a terminal window
 vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
+    group = augroup,
     pattern = "term://*",
     callback = function() vim.cmd("startinsert") end,
 })
@@ -146,16 +222,7 @@ vim.opt.grepformat = '%f:%l:%c:%m'
 
 -- open the quickfix list after :grep
 vim.api.nvim_create_autocmd('QuickFixCmdPost', {
+    group = augroup,
     pattern = '[^l]*',
     command = 'cwindow',
-})
-
-vim.lsp.config("lua_ls", {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' },
-            },
-        },
-    },
 })

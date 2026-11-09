@@ -4,29 +4,7 @@ require('nvim-treesitter').setup {
   install_dir = vim.fn.stdpath('data') .. '/site'
 }
 
-vim.keymap.set({ 'x' }, '[n', function()
-    require 'vim.treesitter._select'.select_prev(vim.v.count1)
-end, { desc = 'Select previous treesitter node' })
-
-vim.keymap.set({ 'x' }, ']n', function()
-    require 'vim.treesitter._select'.select_next(vim.v.count1)
-end, { desc = 'Select next treesitter node' })
-
-vim.keymap.set({ 'x', 'o' }, 'an', function()
-    if vim.treesitter.get_parser(nil, nil, { error = false }) then
-        require 'vim.treesitter._select'.select_parent(vim.v.count1)
-    else
-        vim.lsp.buf.selection_range(vim.v.count1)
-    end
-end, { desc = 'Select parent treesitter node or outer incremental lsp selections' })
-
-vim.keymap.set({ 'x', 'o' }, 'in', function()
-    if vim.treesitter.get_parser(nil, nil, { error = false }) then
-        require 'vim.treesitter._select'.select_child(vim.v.count1)
-    else
-        vim.lsp.buf.selection_range(-vim.v.count1)
-    end
-end, { desc = 'Select child treesitter node or inner incremental lsp selections' })
+local augroup = vim.api.nvim_create_augroup('config_treesitter', { clear = true })
 
 local langs = {
     'bash',
@@ -54,14 +32,24 @@ local langs = {
     'yaml',
 }
 
-for _, lang in ipairs(langs) do
-    require("nvim-treesitter").install(lang)
+local installed = require('nvim-treesitter').get_installed('parsers')
+local missing = vim.tbl_filter(function(lang)
+    return not vim.list_contains(installed, lang)
+end, langs)
+if #missing > 0 then
+    require('nvim-treesitter').install(missing)
 end
 
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = langs,
+    group = augroup,
     callback = function(args)
-        vim.treesitter.start(args.buf)
+        local lang = vim.treesitter.language.get_lang(args.match)
+        if not lang or not vim.list_contains(langs, lang) then
+            return
+        end
+        if not pcall(vim.treesitter.start, args.buf, lang) then
+            return
+        end
         --vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
         vim.wo[0][0].foldmethod = 'expr'
@@ -76,6 +64,7 @@ require("treesitter-context").setup({
 })
 
 vim.api.nvim_create_autocmd("ColorScheme", {
+    group = augroup,
     callback = function()
         local nontext = vim.api.nvim_get_hl(0, { name = 'NonText' })
 
@@ -118,12 +107,6 @@ vim.keymap.set({ "x", "o" }, "aa", function()
 end)
 vim.keymap.set({ "x", "o" }, "ia", function()
     require "nvim-treesitter-textobjects.select".select_textobject("@parameter.inner", "textobjects")
-end)
-vim.keymap.set({ "x", "o" }, "ao", function()
-    require "nvim-treesitter-textobjects.select".select_textobject("@local.scope", "locals")
-end)
-vim.keymap.set({ "x", "o" }, "io", function()
-    require "nvim-treesitter-textobjects.select".select_textobject("@local.scope", "locals")
 end)
 vim.keymap.set({ "x", "o" }, "al", function()
     require "nvim-treesitter-textobjects.select".select_textobject("@loop.outer", "textobjects")
@@ -199,17 +182,11 @@ end)
 vim.keymap.set({ "n", "x", "o" }, "]z", function()
     require("nvim-treesitter-textobjects.move").goto_next_start({ "@fold" }, "folds")
 end)
-vim.keymap.set({ "n", "x", "o" }, "[l", function()
+vim.keymap.set({ "n", "x", "o" }, "[o", function()
     require("nvim-treesitter-textobjects.move").goto_previous_start({ "@loop.outer" }, "textobjects")
 end)
-vim.keymap.set({ "n", "x", "o" }, "]l", function()
-    require("nvim-treesitter-textobjects.move").goto_next_start({ "@loop.outer" }, "textobjects")
-end)
-vim.keymap.set({ "n", "x", "o" }, "[o", function()
-    require("nvim-treesitter-textobjects.move").goto_previous_start({ "@local.scope" }, "locals")
-end)
 vim.keymap.set({ "n", "x", "o" }, "]o", function()
-    require("nvim-treesitter-textobjects.move").goto_next_start({ "@local.scope" }, "locals")
+    require("nvim-treesitter-textobjects.move").goto_next_start({ "@loop.outer" }, "textobjects")
 end)
 vim.keymap.set({ "n", "x", "o" }, "[k", function()
     require("nvim-treesitter-textobjects.move").goto_previous_start({ "@block.outer" }, "textobjects")

@@ -40,6 +40,7 @@ vim.keymap.set("n", "<leader>cd", function()
 end, { desc = "Send diagnostics to CLI agent" })
 
 vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup('config_codecompanion', { clear = true }),
     pattern = "*codecompanion*",
     callback = function(args)
         local buf = args.buf
@@ -54,14 +55,5 @@ vim.api.nvim_create_autocmd("FileType", {
             vim.api.nvim_set_option_value("relativenumber", false, opts)
             vim.api.nvim_set_option_value("fillchars", "eob: ,", opts)
         end)
-    end,
-})
-
-vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
-    pattern = "*",
-    callback = function(args)
-        if vim.bo[args.buf].filetype == "codecompanion_cli" then
-            vim.cmd.startinsert()
-        end
     end,
 })

@@ -28,7 +28,10 @@ require('mini.notify').setup({
     },
 })
 
+local augroup = vim.api.nvim_create_augroup('config_mini', { clear = true })
+
 vim.api.nvim_create_autocmd("ColorScheme", {
+    group = augroup,
     callback = function()
         -- vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "NonText", })
 
@@ -85,12 +88,14 @@ local make_stop = function()
     vim.api.nvim_create_autocmd('ModeChanged', au_opts)
 end
 
-local opts = { pattern = 'MiniSnippetsSessionStart', callback = make_stop }
+local opts = { group = augroup, pattern = 'MiniSnippetsSessionStart', callback = make_stop }
 
 vim.api.nvim_create_autocmd('User', opts)
 
--- Allow snippets to show up in mini.complete
-MiniSnippets.start_lsp_server()
+if not vim.g.mini_snippets_lsp_started then
+    MiniSnippets.start_lsp_server()
+    vim.g.mini_snippets_lsp_started = true
+end
 
 require('mini.completion').setup({
     delay = { signature = 10000000 }, -- Effectively, disable signature

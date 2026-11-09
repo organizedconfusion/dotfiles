@@ -39,6 +39,16 @@ vim.lsp.config("pyright", {
     },
 })
 
+vim.lsp.config("lua_ls", {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' },
+            },
+        },
+    },
+})
+
 vim.lsp.config("ruff", {
   init_options = {
     settings = {
@@ -53,22 +63,22 @@ vim.lsp.enable({ 'clangd', 'lua_ls', 'pyright', 'texlab', 'ruff' })
 
 -- Keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup('config_lsp', { clear = true }),
     callback = function(args)
         local bufnr = args.buf
         local opts = { buffer = bufnr, noremap = true, silent = true }
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
         vim.keymap.set({ 'n', 'x' }, '<leader>cf', vim.lsp.buf.format, opts)
         vim.keymap.set('n', '<leader>ch', function()
             local enabled = vim.lsp.inlay_hint.is_enabled()
             vim.lsp.inlay_hint.enable(not enabled)
         end, opts)
-        if vim.wo.diff then
-            vim.diagnostic.enable(false, { bufnr = args.buf })
-        end
 
         local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client and client.name == 'ruff' then
+            client.server_capabilities.hoverProvider = false
+        end
         if client and client:supports_method('textDocument/documentHighlight', bufnr) then
             local group = vim.api.nvim_create_augroup('lsp_document_highlight_' .. bufnr, { clear = true })
             vim.api.nvim_create_autocmd('CursorHold', {

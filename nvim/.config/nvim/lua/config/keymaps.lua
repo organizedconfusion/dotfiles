@@ -13,9 +13,13 @@ end
 -- [[ Simple Keymaps ]]
 map('n', '<leader>wf', cmd('write'), { desc = "Write current buffer." })
 
-map({ 'i','x' }, 'jk', '<ESC>', { desc = "Map jk key combo to <ESC>." })
+map({ 'i' }, 'jk', '<ESC>', { desc = "Map jk key combo to <ESC>." })
 
 map('n', '<leader><leader>', cmd('noh'), { desc = "Clear search highlighting." })
+map('n', '<C-q>', function()
+    local mc_ns = vim.api.nvim_create_namespace('nvim.multicursor')
+    vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end, { desc = "Clear multicursors in the current buffer." })
 map('n', 'Y', function()
     local pos = vim.api.nvim_win_get_cursor(0)
     vim.cmd('normal! ^y$')
@@ -46,11 +50,11 @@ map('n', '<leader>wo', function()
     vim.cmd('source')
 end, { desc = "Write and source current buffer." })
 
-map('n', '<leader>d', function()
+map('n', 'gl', function()
     vim.diagnostic.open_float()
 end, { desc = "Open the diagnostic float on the at the cursor." })
 
-map('n', '<leader>D', function()
+map('n', 'gL', function()
     vim.diagnostic.setloclist({ open = true })
 end, { desc = "Open the diagnostic list for the buffer." })
 
@@ -88,9 +92,6 @@ map('n', '<leader>dr', function()
     vim.cmd('Diffget REMOTE')
 end, {desc = 'Use custom Diffget command on remote buffer'})
 
-map('n', 'gp', '"0p')
-map('n', 'gP', '"0P')
-
 map('n', '<leader>nq', function()
     local ok, err = pcall(vim.cmd, 'cnewer')
     if not ok then
@@ -105,9 +106,22 @@ map('n', '<leader>oq', function()
     end
 end, { desc = 'Go to an older quickfix list.' })
 
+vim.keymap.set("n", "<leader>vo", function()
+    for name in pairs(package.loaded) do
+        if name:match("^config%.") or name:match("^plugins%.") then
+            package.loaded[name] = nil
+        end
+    end
+    vim.cmd.source(vim.fn.stdpath("config") .. "/init.lua")
+end, { desc = "Reload config" })
+
 vim.keymap.set("n", "<leader>vi", function()
     vim.cmd.edit(vim.fn.stdpath("config") .. "/init.lua")
 end, { desc = "Edit init.lua" })
+
+vim.keymap.set("n", "<leader>vo", function()
+    vim.cmd.source(vim.fn.stdpath("config") .. "/init.lua")
+end, { desc = "Source init.lua" })
 
 vim.keymap.set('v', '<Leader>=', 'c<C-r>=eval(trim(@"))<CR>')
 

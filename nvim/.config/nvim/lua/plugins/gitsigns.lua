@@ -1,5 +1,18 @@
 -- [[ gitsigns setup ]]
 
+local function set_blame_hl()
+    vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", {
+        fg = vim.api.nvim_get_hl(0, { name = "NonText" }).fg,
+        italic = true,
+    })
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+    group = vim.api.nvim_create_augroup('config_gitsigns', { clear = true }),
+    callback = set_blame_hl,
+})
+set_blame_hl()
+
 require("gitsigns").setup({
     signs = {
         add          = { text = '+' },
@@ -50,12 +63,6 @@ require("gitsigns").setup({
         map('n', '<leader>hd', gitsigns.diffthis)
         map('n', '<leader>hb', gitsigns.blame)
         map('n', '<leader>hl', gitsigns.toggle_current_line_blame)
-
-        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", {
-            link = nil,
-            fg = vim.api.nvim_get_hl(0, { name = "NonText" }).fg,
-            italic = true,
-        })
 
         vim.keymap.set('n', '<leader>hq', function()
             for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
