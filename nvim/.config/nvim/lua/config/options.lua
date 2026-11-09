@@ -233,3 +233,26 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost', {
     pattern = '[^l]*',
     command = 'cwindow',
 })
+
+-- Native tabpage labels: icon + file name only (no path). Hidden until a second tab exists.
+function _G.tabline_labels()
+    local parts = {}
+    local current = vim.fn.tabpagenr()
+    for i = 1, vim.fn.tabpagenr('$') do
+        local buf = vim.fn.tabpagebuflist(i)[vim.fn.tabpagewinnr(i)]
+        local path = vim.fn.bufname(buf)
+        local name = vim.fn.fnamemodify(path, ':t')
+        local icon = ''
+        if name == '' then
+            name = '[No Name]'
+        elseif _G.MiniIcons then
+            icon = _G.MiniIcons.get('file', name) .. ' '
+        end
+        local modified = vim.fn.getbufvar(buf, '&modified') == 1 and ' +' or ''
+        local hl = i == current and '%#TabLineSel#' or '%#TabLine#'
+        parts[#parts + 1] = string.format('%%%dT%s %d %s%s%s ', i, hl, i, icon, name, modified)
+    end
+    return table.concat(parts) .. '%#TabLineFill#%T'
+end
+vim.o.tabline = '%!v:lua.tabline_labels()'
+vim.o.showtabline = 1

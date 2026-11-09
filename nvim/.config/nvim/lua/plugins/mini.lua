@@ -19,14 +19,7 @@ require('mini.trailspace').setup()
 require('mini.sessions').setup({ autoread = false, autowrite = true })
 require('mini.input').setup({})
 require('mini.starter').setup()
-require('mini.notify').setup({
-    window = {
-        config = {
-            -- width = 40
-        },
-        -- winblend = 0,
-    },
-})
+require('mini.notify').setup({})
 
 local augroup = vim.api.nvim_create_augroup('config_mini', { clear = true })
 
