@@ -4,7 +4,7 @@ vim.opt.termguicolors = true
 vim.opt.background = 'dark'
 
 require('everforest').setup({
-    background = 'hard',
+    background = 'medium',
     transparent_background_level = 0,
 })
 
