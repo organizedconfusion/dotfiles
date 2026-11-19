@@ -1,22 +1,25 @@
 -- [[ snacks setup ]]
 -- Picker, dashboard, explorer and input are left disabled: mini.* covers those.
 
-require("snacks").setup({
-    bigfile = { enabled = true },
-    quickfile = { enabled = true },
+require('snacks').setup({
+    bigfile = { enabled = true }, -- Disable heavy features on very large files
+    quickfile = { enabled = true }, -- Render the file before plugins load when opening it directly
     bufdelete = { enabled = true },
     scroll = { enabled = false },
 })
 
 local map = vim.keymap.set
 
+-- Delete a buffer without closing its window
 map('n', '<leader>bd', function() Snacks.bufdelete() end, { desc = 'Delete buffer' })
 
--- [[ Toggles ]]
+-- [[ Toggles (<leader>t...) ]]
+-- Built-in toggles
 Snacks.toggle.diagnostics():map('<leader>td')
 Snacks.toggle.inlay_hints():map('<leader>th')
 Snacks.toggle.treesitter():map('<leader>tt')
 
+-- Clean mode: hide UI chrome (see config/clean_mode.lua)
 Snacks.toggle.new({
     id = 'clean_mode',
     name = 'Clean Mode',
@@ -29,6 +32,7 @@ Snacks.toggle.new({
     end,
 }):map('<leader>tz')
 
+-- Treesitter context; scrolloff shrinks while the context lines are hidden
 Snacks.toggle.new({
     id = 'treesitter_context',
     name = 'Treesitter Context',
@@ -39,6 +43,7 @@ Snacks.toggle.new({
     end,
 }):map('<leader>tc')
 
+-- Gitsigns inline blame for the current line
 Snacks.toggle.new({
     id = 'line_blame',
     name = 'Line Blame',
@@ -46,6 +51,7 @@ Snacks.toggle.new({
     set = function(state) require('gitsigns').toggle_current_line_blame(state) end,
 }):map('<leader>tb')
 
+-- mini.trailspace highlighting, applied to every window
 Snacks.toggle.new({
     id = 'trailing_whitespace',
     name = 'Trailing Whitespace Highlight',

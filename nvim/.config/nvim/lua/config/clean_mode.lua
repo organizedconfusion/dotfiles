@@ -16,12 +16,14 @@ M._state = M._state or {
 
 local saved = M._state
 
+-- Window-local options hidden in clean mode
 local clean_win_opts = { number = false, relativenumber = false, signcolumn = 'no' }
 
 local function set_win_opt(win, name, value)
     vim.api.nvim_set_option_value(name, value, { scope = 'local', win = win })
 end
 
+-- Hide the gutter in a window, remembering its original values. Floating windows are skipped.
 local function clean_window(win)
     if not vim.api.nvim_win_is_valid(win) or saved.wins[win] then
         return
@@ -37,6 +39,7 @@ local function clean_window(win)
     saved.wins[win] = state
 end
 
+-- Clean windows opened while clean mode is active
 vim.api.nvim_create_autocmd({ 'WinNew', 'BufWinEnter' }, {
     group = vim.api.nvim_create_augroup('config_clean_mode', { clear = true }),
     callback = function()
@@ -48,10 +51,12 @@ vim.api.nvim_create_autocmd({ 'WinNew', 'BufWinEnter' }, {
     end,
 })
 
+-- Whether clean mode is currently active
 function M.is_active()
     return saved.active
 end
 
+-- Save the current UI state, then hide everything
 local function enter()
     if vim.lsp.inlay_hint and vim.lsp.inlay_hint.is_enabled then
         saved.inlay_hints = vim.lsp.inlay_hint.is_enabled()
@@ -101,6 +106,7 @@ local function enter()
     end)
 end
 
+-- Restore the UI state saved by enter()
 local function exit()
     saved.active = false
 
@@ -142,6 +148,7 @@ local function exit()
     end)
 end
 
+-- Enter or leave clean mode
 function M.toggle()
     if saved.active then
         exit()
