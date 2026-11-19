@@ -35,6 +35,7 @@ Snacks.toggle.new({
     get = function() return require('treesitter-context').enabled() end,
     set = function(state)
         require('treesitter-context')[state and 'enable' or 'disable']()
+        vim.opt.scrolloff = state and 8 or 4
     end,
 }):map('<leader>tc')
 

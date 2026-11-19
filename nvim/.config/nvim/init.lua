@@ -22,6 +22,7 @@ vim.pack.add {
     { src = 'https://github.com/nvim-mini/mini.input' },
     { src = 'https://github.com/nvim-mini/mini.starter' },
     { src = 'https://github.com/nvim-mini/mini.notify' },
+    { src = 'https://github.com/nvim-mini/mini.extra' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
     {

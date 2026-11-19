@@ -16,10 +16,20 @@ require('mini.pick').setup({
 })
 require('mini.surround').setup()
 require('mini.trailspace').setup()
-require('mini.sessions').setup({ autoread = false, autowrite = true })
+require('mini.sessions').setup({
+    autoread = false,
+    autowrite = true,
+    directory = '',
+    file = 'Session.vim'
+})
 require('mini.input').setup({})
 require('mini.starter').setup()
-require('mini.notify').setup({})
+require('mini.notify').setup({
+    window = {
+        winblend = 0
+    }
+})
+require('mini.extra').setup({})
 
 local augroup = vim.api.nvim_create_augroup('config_mini', { clear = true })
 
@@ -131,6 +141,10 @@ end, { desc = 'Pick a file path and insert it' })
 vim.keymap.set('n', '<leader>ps', function()
     MiniSessions.select()
 end, { desc = 'Pick from sessions' })
+
+vim.keymap.set('n', '<leader>/', function()
+    vim.cmd("Pick buf_lines scope='current'")
+end, { desc = 'Fuzzy search buffer' })
 
 vim.keymap.set('n', '<leader>e', function()
     local name = vim.api.nvim_buf_get_name(0)

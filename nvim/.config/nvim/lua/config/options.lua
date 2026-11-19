@@ -23,6 +23,7 @@ vim.opt.signcolumn = my.signcolumn
 vim.opt.numberwidth = 4
 vim.opt.updatetime = 250
 vim.opt.winborder = 'rounded'
+vim.opt.winblend = 0
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
 -- vim.opt.colorcolumn = '110'
@@ -40,6 +41,7 @@ vim.opt.shiftwidth = 4
 vim.opt.shiftround = true
 vim.opt.expandtab = true
 vim.opt.linebreak = true
+vim.opt.showbreak = "↪ "
 vim.opt.wrap = false
 vim.opt.breakindent = true
 
