@@ -50,7 +50,6 @@ vim.api.nvim_create_autocmd('FileType', {
         if not pcall(vim.treesitter.start, args.buf, lang) then
             return
         end
-        --vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
         vim.wo[0][0].foldmethod = 'expr'
         vim.wo.foldlevel = 99

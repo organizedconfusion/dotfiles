@@ -26,7 +26,6 @@ vim.opt.winborder = 'rounded'
 vim.opt.winblend = 0
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
--- vim.opt.colorcolumn = '110'
 vim.opt.mouse = 'a'
 vim.opt.guicursor='n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor'
 vim.opt.laststatus = 2

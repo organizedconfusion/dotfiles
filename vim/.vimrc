@@ -1,6 +1,6 @@
 " General
 set nocompatible            " get rid of Vi compatibility mode. SET FIRST!
-filetype indent on   " filetype detection[ON] plugin[ON] indent[ON]
+filetype indent on          " filetype detection[ON] indent[ON]
 
 " Theme / Colour
 set t_Co=256                " will fallback to 256 color mode if no termguicolors
@@ -15,6 +15,7 @@ endif
 syntax enable               " enable syntax highlighting (previously syntax on).
 colorscheme retrobox
 set background=dark         " dark mode for colorscheme
+
 
 " Vim UI
 set number                  " show line numbers
@@ -57,11 +58,10 @@ set shiftround              " always indent/outdent to the nearest tabstop
 set expandtab               " use spaces instead of tabs
 set linebreak               " don't break words when wrapping
 set nowrap                  " don't wrap text
+set showbreak=↪\ 
 
 
 " Key Remapping
 let mapleader = " "
 inoremap jk <esc>
-vnoremap jk <esc>
 noremap <leader><leader> :noh<CR>:call clearmatches()<CR>
-nnoremap <leader>wf :w<CR>

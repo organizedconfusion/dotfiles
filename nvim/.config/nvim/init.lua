@@ -6,23 +6,11 @@ vim.g.mapleader = ' '
 -- Load all plugins
 -- See lua/plugins folder for configurations
 vim.pack.add {
-    { src = 'https://github.com/neanias/everforest-nvim' },
+    { src = 'https://github.com/catppuccin/nvim' },
     { src = 'https://github.com/lewis6991/gitsigns.nvim' },
-    { src = 'https://github.com/mason-org/mason.nvim' },
     { src = 'https://github.com/neovim/nvim-lspconfig' },
     { src = 'https://github.com/nvim-lualine/lualine.nvim' },
-    { src = 'https://github.com/nvim-mini/mini.files' },
-    { src = 'https://github.com/nvim-mini/mini.icons' },
-    { src = 'https://github.com/nvim-mini/mini.pick' },
-    { src = 'https://github.com/nvim-mini/mini.surround' },
-    { src = 'https://github.com/nvim-mini/mini.snippets' },
-    { src = 'https://github.com/nvim-mini/mini.completion' },
-    { src = 'https://github.com/nvim-mini/mini.trailspace' },
-    { src = 'https://github.com/nvim-mini/mini.sessions' },
-    { src = 'https://github.com/nvim-mini/mini.input' },
-    { src = 'https://github.com/nvim-mini/mini.starter' },
-    { src = 'https://github.com/nvim-mini/mini.notify' },
-    { src = 'https://github.com/nvim-mini/mini.extra' },
+    { src = 'https://github.com/nvim-mini/mini.nvim' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
     {
@@ -30,17 +18,9 @@ vim.pack.add {
         version = 'main'
     },
     { src = 'https://github.com/rafamadriz/friendly-snippets' },
-    { src = 'https://github.com/alexghergh/nvim-tmux-navigation' },
     { src = 'https://github.com/mfussenegger/nvim-dap' },
     { src = 'https://github.com/igorlfs/nvim-dap-view' },
     { src = 'https://github.com/hat0uma/csvview.nvim' },
-    { src = 'https://github.com/github/copilot.vim' },
-    { src = 'https://github.com/nvim-lua/plenary.nvim' },
-    {
-        src = 'https://github.com/olimorris/codecompanion.nvim',
-        version = vim.version.range("^19.0.0")
-    },
-    { src = 'https://github.com/meanderingprogrammer/render-markdown.nvim' },
     { src = 'https://github.com/windwp/nvim-autopairs'},
     { src = 'https://github.com/folke/snacks.nvim'},
 }
@@ -51,15 +31,13 @@ require('config.keymaps')
 require('config.lsp')
 require('plugins.gitsigns')
 require('plugins.mini')
-require('plugins.mason')
 require('plugins.treesitter')
--- require('plugins.termdebug')
-require('plugins.nvim-tmux-navigation')
 require('plugins.dap')
-require('plugins.codecompanion')
-require('plugins.render-markdown')
 require('plugins.csvview')
 require('plugins.nvim-autopairs')
 require('plugins.snacks')
 require('config.colorscheme')
 require('plugins.lualine')
+
+-- AI tools (copilot, plenary, codecompanion, render-markdown): comment out to disable
+require('ai')

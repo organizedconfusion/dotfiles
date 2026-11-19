@@ -31,26 +31,6 @@ require('mini.notify').setup({
 })
 require('mini.extra').setup({})
 
-local augroup = vim.api.nvim_create_augroup('config_mini', { clear = true })
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-    group = augroup,
-    callback = function()
-        -- vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "NonText", })
-
-        local mini_title = vim.api.nvim_get_hl(0, { name = "MiniFilesTitle" })
-
-        -- vim.api.nvim_set_hl(0, 'MiniPickPrompt', { fg = mini_title.fg, bg = "NONE", bold = true })
-        -- vim.api.nvim_set_hl(0, 'MiniPickPromptPrefix', { link = 'MiniPickPrompt' })
-        -- vim.api.nvim_set_hl(0, 'MiniPickPromptCaret', { link = 'MiniPickPrompt' })
-
-        if vim.g.colors_name == "everforest" then
-            vim.api.nvim_set_hl(0, 'MiniFilesTitle', { fg = mini_title.fg, bg = 'none', bold = false })
-            vim.api.nvim_set_hl(0, 'MiniFilesTitleFocused', { fg = mini_title.fg, bg = 'none', bold = true })
-        end
-    end,
-})
-
 -- Tab mapping
 local snippets = require('mini.snippets')
 

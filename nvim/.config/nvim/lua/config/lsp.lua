@@ -4,9 +4,6 @@
 vim.lsp.config("clangd", {
     cmd = {
         "clangd",
-        "--query-driver=" ..
-            "/home/sean/common/gcc/ubuntu/7.3/bin/arm-none-eabi-gcc," ..
-            "/home/sean/common/gcc/ubuntu/7.3/bin/arm-none-eabi-g++",
         "--background-index",
         "--clang-tidy",
         "--header-insertion=never",

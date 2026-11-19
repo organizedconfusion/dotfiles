@@ -20,16 +20,22 @@ require("dap-view").setup({
         }
     },
     windows = {
-        -- size = 0.33,
-        -- position = "right"
+        size = 0.333,
+        position = "bottom"
     }
 })
 
-dap.adapters.gdb = {
-    type = "executable",
-    command = "gdb-multiarch",
-    args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
-}
+local gdb = vim.fn.executable("gdb-multiarch") == 1 and "gdb-multiarch"
+    or vim.fn.executable("gdb") == 1 and "gdb"
+    or nil
+
+if gdb then
+    dap.adapters.gdb = {
+        type = "executable",
+        command = gdb,
+        args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
+    }
+end
 
 -- Generic configs only; project specifics go in a project-local .nvim.lua
 dap.configurations.c = {
@@ -42,19 +48,29 @@ dap.configurations.c = {
     },
 }
 
-dap.adapters.python = {
-    type = "executable",
-    command = "python",  -- uses current python (IMPORTANT: your venv)
-    args = { "-m", "debugpy.adapter" },
-}
-
 local function python_path()
-    -- use venv if active
+    -- use venv if active, otherwise whichever python exists
     local venv = os.getenv("VIRTUAL_ENV")
     if venv then
         return venv .. "/bin/python"
     end
-    return "python"
+    return vim.fn.executable("python3") == 1 and "python3" or "python"
+end
+
+-- debugpy must be installed in the python this resolves to (IMPORTANT: your venv)
+dap.adapters.python = function(callback)
+    local python = python_path()
+    vim.system({ python, "-c", "import debugpy" }, {}, vim.schedule_wrap(function(res)
+        if res.code ~= 0 then
+            vim.notify("debugpy not installed for " .. python, vim.log.levels.ERROR)
+            return
+        end
+        callback({
+            type = "executable",
+            command = python,
+            args = { "-m", "debugpy.adapter" },
+        })
+    end))
 end
 
 local function prompt_args()
