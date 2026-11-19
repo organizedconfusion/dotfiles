@@ -67,26 +67,6 @@ vim.api.nvim_create_autocmd('FileType', {
 require('treesitter-context').setup({
     max_lines = 4,
     trim_scope = 'outer',
-    separator = '─',
-})
-
--- Make the context lines transparent, with a separator in the NonText colour
-vim.api.nvim_create_autocmd('ColorScheme', {
-    group = augroup,
-    callback = function()
-        local nontext = vim.api.nvim_get_hl(0, { name = 'NonText' })
-
-        vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', {
-            fg = nontext.fg,
-            bg = 'none',
-        })
-
-        local normal = vim.api.nvim_get_hl(0, { name = 'Normal', link = false })
-        vim.api.nvim_set_hl(0, 'TreesitterContext', {
-            fg = normal.fg,
-            bg = 'none',
-        })
-    end,
 })
 
 -- [[ Textobjects ]]
