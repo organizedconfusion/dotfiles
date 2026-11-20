@@ -4,6 +4,7 @@
     path = ~/.gitconfig.local
     path = ~/deltathemes.gitconfig
     path = ~/catppuccin.gitconfig
+    path = ~/gruvbox-material.gitconfig
 [core]
     autocrlf = input
     editor = nvim
@@ -12,7 +13,8 @@
 [interactive]
     diffFilter = delta --color-only
 [delta]
-    features = catppuccin
+    ; features = gruvbox-dark
+    features = gruvbox-material-soft-dark
     navigate = true
     line-numbers = true
     side-by-side = false
