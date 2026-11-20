@@ -9,6 +9,7 @@ vim.g.mapleader = ' '
 vim.pack.add {
     -- Appearance
     { src = 'https://github.com/catppuccin/nvim' },
+    { src = 'https://github.com/sainnhe/gruvbox-material' },
     { src = 'https://github.com/nvim-lualine/lualine.nvim' },
 
     -- Editing, navigation and utilities

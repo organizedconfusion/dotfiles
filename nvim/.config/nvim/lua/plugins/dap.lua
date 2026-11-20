@@ -24,7 +24,7 @@ require('dap-view').setup({
     },
     windows = {
         size = 0.333,
-        position = 'bottom',
+        position = 'below',
     },
 })
 
